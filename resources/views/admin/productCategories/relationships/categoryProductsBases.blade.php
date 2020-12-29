@@ -46,6 +46,9 @@
                                 {{ trans('cruds.productsBase.fields.provider') }}
                             </th>
                             <th>
+                                {{ trans('cruds.productsBase.fields.marca') }}
+                            </th>
+                            <th>
                                 &nbsp;
                             </th>
                         </tr>
@@ -83,6 +86,9 @@
                                     @foreach($productsBase->providers as $key => $item)
                                         <span class="badge badge-info">{{ $item->name }}</span>
                                     @endforeach
+                                </td>
+                                <td>
+                                    {{ $productsBase->marca ?? '' }}
                                 </td>
                                 <td>
                                     @can('products_base_show')

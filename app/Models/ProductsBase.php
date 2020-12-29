@@ -25,6 +25,7 @@ class ProductsBase extends Model
         'stock',
         'min_stock',
         'max_stock',
+        'marca',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -313,6 +313,8 @@ return [
             'category_helper'    => ' ',
             'provider'           => 'Provider',
             'provider_helper'    => ' ',
+            'marca'              => 'Marca',
+            'marca_helper'       => 'una ayuda en la cajita de ingreso para elusuario.',
         ],
     ],
     'productSpec'       => [
