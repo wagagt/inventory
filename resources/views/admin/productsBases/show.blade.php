@@ -83,6 +83,14 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.productsBase.fields.marca') }}
+                        </th>
+                        <td>
+                            {{ $productsBase->marca }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

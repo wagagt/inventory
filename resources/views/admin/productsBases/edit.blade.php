@@ -83,6 +83,14 @@
                 <span class="help-block">{{ trans('cruds.productsBase.fields.provider_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="marca">{{ trans('cruds.productsBase.fields.marca') }}</label>
+                <input class="form-control {{ $errors->has('marca') ? 'is-invalid' : '' }}" type="text" name="marca" id="marca" value="{{ old('marca', $productsBase->marca) }}">
+                @if($errors->has('marca'))
+                    <span class="text-danger">{{ $errors->first('marca') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.productsBase.fields.marca_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

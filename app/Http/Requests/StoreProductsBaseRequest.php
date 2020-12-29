@@ -49,6 +49,10 @@ class StoreProductsBaseRequest extends FormRequest
             'providers'    => [
                 'array',
             ],
+            'marca'        => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }
