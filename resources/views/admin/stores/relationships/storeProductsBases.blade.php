@@ -1,40 +1,52 @@
 <div class="m-3">
-    @can('transaction_detail_create')
+    @can('products_base_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.transaction-details.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.transactionDetail.title_singular') }}
+                <a class="btn btn-success" href="{{ route('admin.products-bases.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.productsBase.title_singular') }}
                 </a>
             </div>
         </div>
     @endcan
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.transactionDetail.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.productsBase.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-transactionTransactionDetails">
+                <table class=" table table-bordered table-striped table-hover datatable datatable-storeProductsBases">
                     <thead>
                         <tr>
                             <th width="10">
 
                             </th>
                             <th>
-                                {{ trans('cruds.transactionDetail.fields.id') }}
+                                {{ trans('cruds.productsBase.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.transactionDetail.fields.quantity') }}
+                                {{ trans('cruds.productsBase.fields.name') }}
                             </th>
                             <th>
-                                {{ trans('cruds.transactionDetail.fields.transaction') }}
+                                {{ trans('cruds.productsBase.fields.description') }}
                             </th>
                             <th>
-                                {{ trans('cruds.transaction.fields.date') }}
+                                {{ trans('cruds.productsBase.fields.stock') }}
                             </th>
                             <th>
-                                {{ trans('cruds.transactionDetail.fields.item') }}
+                                {{ trans('cruds.productsBase.fields.min_stock') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.productsBase.fields.max_stock') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.productsBase.fields.category') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.productsBase.fields.provider') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.productsBase.fields.store') }}
                             </th>
                             <th>
                                 &nbsp;
@@ -42,43 +54,57 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($transactionDetails as $key => $transactionDetail)
-                            <tr data-entry-id="{{ $transactionDetail->id }}">
+                        @foreach($productsBases as $key => $productsBase)
+                            <tr data-entry-id="{{ $productsBase->id }}">
                                 <td>
 
                                 </td>
                                 <td>
-                                    {{ $transactionDetail->id ?? '' }}
+                                    {{ $productsBase->id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $transactionDetail->quantity ?? '' }}
+                                    {{ $productsBase->name ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $transactionDetail->transaction->name ?? '' }}
+                                    {{ $productsBase->description ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $transactionDetail->transaction->date ?? '' }}
+                                    {{ $productsBase->stock ?? '' }}
                                 </td>
                                 <td>
-                                    @foreach($transactionDetail->items as $key => $item)
-                                        <span class="badge badge-info">{{ $item->serial_number }}</span>
+                                    {{ $productsBase->min_stock ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $productsBase->max_stock ?? '' }}
+                                </td>
+                                <td>
+                                    @foreach($productsBase->categories as $key => $item)
+                                        <span class="badge badge-info">{{ $item->name }}</span>
                                     @endforeach
                                 </td>
                                 <td>
-                                    @can('transaction_detail_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.transaction-details.show', $transactionDetail->id) }}">
+                                    @foreach($productsBase->providers as $key => $item)
+                                        <span class="badge badge-info">{{ $item->name }}</span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    {{ $productsBase->store->name ?? '' }}
+                                </td>
+                                <td>
+                                    @can('products_base_show')
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.products-bases.show', $productsBase->id) }}">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan
 
-                                    @can('transaction_detail_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.transaction-details.edit', $transactionDetail->id) }}">
+                                    @can('products_base_edit')
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.products-bases.edit', $productsBase->id) }}">
                                             {{ trans('global.edit') }}
                                         </a>
                                     @endcan
 
-                                    @can('transaction_detail_delete')
-                                        <form action="{{ route('admin.transaction-details.destroy', $transactionDetail->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    @can('products_base_delete')
+                                        <form action="{{ route('admin.products-bases.destroy', $productsBase->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -100,11 +126,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('transaction_detail_delete')
+@can('products_base_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.transaction-details.massDestroy') }}",
+    url: "{{ route('admin.products-bases.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -135,7 +161,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-transactionTransactionDetails:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-storeProductsBases:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

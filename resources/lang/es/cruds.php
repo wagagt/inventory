@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'userManagement'    => [
+    'userManagement'        => [
         'title'          => 'Ajustes',
         'title_singular' => 'Ajustes',
     ],
-    'permission'        => [
+    'permission'            => [
         'title'          => 'Permisos',
         'title_singular' => 'Permiso',
         'fields'         => [
@@ -21,7 +21,7 @@ return [
             'deleted_at_helper' => ' ',
         ],
     ],
-    'role'              => [
+    'role'                  => [
         'title'          => 'Roles',
         'title_singular' => 'Rol',
         'fields'         => [
@@ -39,7 +39,7 @@ return [
             'deleted_at_helper'  => ' ',
         ],
     ],
-    'user'              => [
+    'user'                  => [
         'title'          => 'Usuarios',
         'title_singular' => 'Usuario',
         'fields'         => [
@@ -65,11 +65,11 @@ return [
             'deleted_at_helper'        => ' ',
         ],
     ],
-    'basicCRM'          => [
+    'basicCRM'              => [
         'title'          => 'Basic CRM',
         'title_singular' => 'Basic CRM',
     ],
-    'crmStatus'         => [
+    'crmStatus'             => [
         'title'          => 'Statuses',
         'title_singular' => 'Status',
         'fields'         => [
@@ -85,7 +85,7 @@ return [
             'deleted_at_helper' => ' ',
         ],
     ],
-    'crmCustomer'       => [
+    'crmCustomer'           => [
         'title'          => 'Customers',
         'title_singular' => 'Customer',
         'fields'         => [
@@ -117,7 +117,7 @@ return [
             'deleted_at_helper'  => ' ',
         ],
     ],
-    'crmNote'           => [
+    'crmNote'               => [
         'title'          => 'Notes',
         'title_singular' => 'Note',
         'fields'         => [
@@ -135,7 +135,7 @@ return [
             'deleted_at_helper' => ' ',
         ],
     ],
-    'crmDocument'       => [
+    'crmDocument'           => [
         'title'          => 'Documents',
         'title_singular' => 'Document',
         'fields'         => [
@@ -157,7 +157,7 @@ return [
             'deleted_at_helper'    => ' ',
         ],
     ],
-    'store'             => [
+    'store'                 => [
         'title'          => 'Stores',
         'title_singular' => 'Store',
         'fields'         => [
@@ -183,11 +183,11 @@ return [
             'user_helper'       => ' ',
         ],
     ],
-    'adminStore'        => [
+    'adminStore'            => [
         'title'          => 'Admin Stores',
         'title_singular' => 'Admin Store',
     ],
-    'provider'          => [
+    'provider'              => [
         'title'          => 'Providers',
         'title_singular' => 'Provider',
         'fields'         => [
@@ -217,7 +217,7 @@ return [
             'deleted_at_helper'    => ' ',
         ],
     ],
-    'productCategory'   => [
+    'productCategory'       => [
         'title'          => 'Product Categories',
         'title_singular' => 'Product Category',
         'fields'         => [
@@ -235,7 +235,7 @@ return [
             'deleted_at_helper'  => ' ',
         ],
     ],
-    'productTag'        => [
+    'productTag'            => [
         'title'          => 'Product Tag',
         'title_singular' => 'Product Tag',
         'fields'         => [
@@ -253,11 +253,11 @@ return [
             'product_helper'    => ' ',
         ],
     ],
-    'adminProduct'      => [
+    'adminProduct'          => [
         'title'          => 'Admin Products',
         'title_singular' => 'Admin Product',
     ],
-    'product'           => [
+    'product'               => [
         'title'          => 'Products',
         'title_singular' => 'Product',
         'fields'         => [
@@ -287,7 +287,7 @@ return [
             'deleted_at_helper'    => ' ',
         ],
     ],
-    'productsBase'      => [
+    'productsBase'          => [
         'title'          => 'Products',
         'title_singular' => 'Product',
         'fields'         => [
@@ -313,11 +313,11 @@ return [
             'category_helper'    => ' ',
             'provider'           => 'Provider',
             'provider_helper'    => ' ',
-            'marca'              => 'Marca',
-            'marca_helper'       => 'una ayuda en la cajita de ingreso para elusuario.',
+            'store'              => 'Store',
+            'store_helper'       => ' ',
         ],
     ],
-    'productSpec'       => [
+    'productSpec'           => [
         'title'          => 'Product Specs',
         'title_singular' => 'Product Spec',
         'fields'         => [
@@ -339,14 +339,12 @@ return [
             'product_helper'     => ' ',
         ],
     ],
-    'item'              => [
+    'item'                  => [
         'title'          => 'Items',
         'title_singular' => 'Item',
         'fields'         => [
             'id'                        => 'ID',
             'id_helper'                 => ' ',
-            'code'                      => 'Code',
-            'code_helper'               => ' ',
             'product'                   => 'Product',
             'product_helper'            => ' ',
             'created_at'                => 'Created at',
@@ -355,15 +353,19 @@ return [
             'updated_at_helper'         => ' ',
             'deleted_at'                => 'Deleted at',
             'deleted_at_helper'         => ' ',
+            'serial_number'             => 'Serial Number',
+            'serial_number_helper'      => ' ',
+            'price'                     => 'Price',
+            'price_helper'              => ' ',
             'transaction_detail'        => 'Transaction Detail',
-            'transaction_detail_helper' => 'Id_ del detalle de transaccion que afecta al item',
+            'transaction_detail_helper' => ' ',
         ],
     ],
-    'adminTransaction'  => [
+    'adminTransaction'      => [
         'title'          => 'Admin Transactions',
         'title_singular' => 'Admin Transaction',
     ],
-    'transactionStatus' => [
+    'transactionStatus'     => [
         'title'          => 'Transaction Status',
         'title_singular' => 'Transaction Status',
         'fields'         => [
@@ -381,7 +383,7 @@ return [
             'deleted_at_helper'  => ' ',
         ],
     ],
-    'transactionType'   => [
+    'transactionType'       => [
         'title'          => 'Transaction Types',
         'title_singular' => 'Transaction Type',
         'fields'         => [
@@ -399,7 +401,7 @@ return [
             'deleted_at_helper'  => ' ',
         ],
     ],
-    'transaction'       => [
+    'transaction'           => [
         'title'          => 'Transactions',
         'title_singular' => 'Transaction',
         'fields'         => [
@@ -433,28 +435,50 @@ return [
             'deleted_at_helper'    => ' ',
         ],
     ],
-    'transactionDetail' => [
+    'transactionDetail'     => [
         'title'          => 'Transaction Detail',
         'title_singular' => 'Transaction Detail',
         'fields'         => [
-            'id'                   => 'ID',
-            'id_helper'            => ' ',
-            'quantity'             => 'Cantidad',
-            'quantity_helper'      => ' ',
-            'transaction'          => 'Transaction',
-            'transaction_helper'   => ' ',
-            'producto'             => 'Producto',
-            'producto_helper'      => ' ',
-            'product_stock'        => 'Product Stock',
-            'product_stock_helper' => ' ',
-            'created_at'           => 'Created at',
-            'created_at_helper'    => ' ',
-            'updated_at'           => 'Updated at',
-            'updated_at_helper'    => ' ',
-            'deleted_at'           => 'Deleted at',
-            'deleted_at_helper'    => ' ',
-            'productname'          => 'Productname',
-            'productname_helper'   => ' ',
+            'id'                 => 'ID',
+            'id_helper'          => ' ',
+            'quantity'           => 'Cantidad',
+            'quantity_helper'    => ' ',
+            'transaction'        => 'Transaction',
+            'transaction_helper' => ' ',
+            'created_at'         => 'Created at',
+            'created_at_helper'  => ' ',
+            'updated_at'         => 'Updated at',
+            'updated_at_helper'  => ' ',
+            'deleted_at'         => 'Deleted at',
+            'deleted_at_helper'  => ' ',
+            'item'               => 'Item',
+            'item_helper'        => ' ',
+        ],
+    ],
+    'customerChargeAccount' => [
+        'title'          => 'Customer Charge Accounts',
+        'title_singular' => 'Customer Charge Account',
+        'fields'         => [
+            'id'                      => 'ID',
+            'id_helper'               => ' ',
+            'date'                    => 'Date',
+            'date_helper'             => ' ',
+            'payment_type'            => 'Payment Type',
+            'payment_type_helper'     => ' ',
+            'amount'                  => 'Amount',
+            'amount_helper'           => ' ',
+            'doc_no'                  => 'Document No',
+            'doc_no_helper'           => ' ',
+            'currency'                => 'Currency',
+            'currency_helper'         => ' ',
+            'exchage_currency'        => 'Exchage Currency',
+            'exchage_currency_helper' => ' ',
+            'created_at'              => 'Created at',
+            'created_at_helper'       => ' ',
+            'updated_at'              => 'Updated at',
+            'updated_at_helper'       => ' ',
+            'deleted_at'              => 'Deleted at',
+            'deleted_at_helper'       => ' ',
         ],
     ],
 ];

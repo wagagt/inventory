@@ -83,12 +83,16 @@
                 <span class="help-block">{{ trans('cruds.productsBase.fields.provider_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="marca">{{ trans('cruds.productsBase.fields.marca') }}</label>
-                <input class="form-control {{ $errors->has('marca') ? 'is-invalid' : '' }}" type="text" name="marca" id="marca" value="{{ old('marca', $productsBase->marca) }}">
-                @if($errors->has('marca'))
-                    <span class="text-danger">{{ $errors->first('marca') }}</span>
+                <label class="required" for="store_id">{{ trans('cruds.productsBase.fields.store') }}</label>
+                <select class="form-control select2 {{ $errors->has('store') ? 'is-invalid' : '' }}" name="store_id" id="store_id" required>
+                    @foreach($stores as $id => $store)
+                        <option value="{{ $id }}" {{ (old('store_id') ? old('store_id') : $productsBase->store->id ?? '') == $id ? 'selected' : '' }}>{{ $store }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('store'))
+                    <span class="text-danger">{{ $errors->first('store') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.productsBase.fields.marca_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.productsBase.fields.store_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

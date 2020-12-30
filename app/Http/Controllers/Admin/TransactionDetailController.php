@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTransactionDetailRequest;
 use App\Http\Requests\StoreTransactionDetailRequest;
 use App\Http\Requests\UpdateTransactionDetailRequest;
-use App\Models\Product;
-use App\Models\ProductsBase;
+use App\Models\Item;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Gate;
@@ -20,7 +19,7 @@ class TransactionDetailController extends Controller
     {
         abort_if(Gate::denies('transaction_detail_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transactionDetails = TransactionDetail::with(['transaction', 'producto', 'productname'])->get();
+        $transactionDetails = TransactionDetail::with(['transaction', 'items'])->get();
 
         return view('admin.transactionDetails.index', compact('transactionDetails'));
     }
@@ -31,16 +30,15 @@ class TransactionDetailController extends Controller
 
         $transactions = Transaction::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $productos = ProductsBase::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $items = Item::all()->pluck('serial_number', 'id');
 
-        $productnames = Product::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.transactionDetails.create', compact('transactions', 'productos', 'productnames'));
+        return view('admin.transactionDetails.create', compact('transactions', 'items'));
     }
 
     public function store(StoreTransactionDetailRequest $request)
     {
         $transactionDetail = TransactionDetail::create($request->all());
+        $transactionDetail->items()->sync($request->input('items', []));
 
         return redirect()->route('admin.transaction-details.index');
     }
@@ -51,18 +49,17 @@ class TransactionDetailController extends Controller
 
         $transactions = Transaction::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $productos = ProductsBase::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $items = Item::all()->pluck('serial_number', 'id');
 
-        $productnames = Product::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $transactionDetail->load('transaction', 'items');
 
-        $transactionDetail->load('transaction', 'producto', 'productname');
-
-        return view('admin.transactionDetails.edit', compact('transactions', 'productos', 'productnames', 'transactionDetail'));
+        return view('admin.transactionDetails.edit', compact('transactions', 'items', 'transactionDetail'));
     }
 
     public function update(UpdateTransactionDetailRequest $request, TransactionDetail $transactionDetail)
     {
         $transactionDetail->update($request->all());
+        $transactionDetail->items()->sync($request->input('items', []));
 
         return redirect()->route('admin.transaction-details.index');
     }
@@ -71,7 +68,7 @@ class TransactionDetailController extends Controller
     {
         abort_if(Gate::denies('transaction_detail_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transactionDetail->load('transaction', 'producto', 'productname');
+        $transactionDetail->load('transaction', 'items');
 
         return view('admin.transactionDetails.show', compact('transactionDetail'));
     }

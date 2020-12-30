@@ -17,7 +17,7 @@ class UpdateItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'               => [
+            'serial_number'      => [
                 'string',
                 'nullable',
             ],

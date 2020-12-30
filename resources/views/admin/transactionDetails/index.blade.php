@@ -35,19 +35,7 @@
                             {{ trans('cruds.transaction.fields.date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transactionDetail.fields.producto') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.productsBase.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transactionDetail.fields.product_stock') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.transactionDetail.fields.productname') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.product.fields.name') }}
+                            {{ trans('cruds.transactionDetail.fields.item') }}
                         </th>
                         <th>
                             &nbsp;
@@ -73,19 +61,9 @@
                                 {{ $transactionDetail->transaction->date ?? '' }}
                             </td>
                             <td>
-                                {{ $transactionDetail->producto->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transactionDetail->producto->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transactionDetail->product_stock ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transactionDetail->productname->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $transactionDetail->productname->name ?? '' }}
+                                @foreach($transactionDetail->items as $key => $item)
+                                    <span class="badge badge-info">{{ $item->serial_number }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('transaction_detail_show')

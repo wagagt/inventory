@@ -41,26 +41,12 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.transactionDetail.fields.producto') }}
+                            {{ trans('cruds.transactionDetail.fields.item') }}
                         </th>
                         <td>
-                            {{ $transactionDetail->producto->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.transactionDetail.fields.product_stock') }}
-                        </th>
-                        <td>
-                            {{ $transactionDetail->product_stock }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.transactionDetail.fields.productname') }}
-                        </th>
-                        <td>
-                            {{ $transactionDetail->productname->name ?? '' }}
+                            @foreach($transactionDetail->items as $key => $item)
+                                <span class="label label-info">{{ $item->serial_number }}</span>
+                            @endforeach
                         </td>
                     </tr>
                 </tbody>

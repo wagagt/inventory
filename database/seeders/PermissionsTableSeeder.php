@@ -412,6 +412,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 101,
+                'title' => 'customer_charge_account_create',
+            ],
+            [
+                'id'    => 102,
+                'title' => 'customer_charge_account_edit',
+            ],
+            [
+                'id'    => 103,
+                'title' => 'customer_charge_account_show',
+            ],
+            [
+                'id'    => 104,
+                'title' => 'customer_charge_account_delete',
+            ],
+            [
+                'id'    => 105,
+                'title' => 'customer_charge_account_access',
+            ],
+            [
+                'id'    => 106,
                 'title' => 'profile_password_edit',
             ],
         ];

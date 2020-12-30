@@ -20,8 +20,9 @@ class Item extends Model
     ];
 
     protected $fillable = [
-        'code',
         'product_id',
+        'serial_number',
+        'price',
         'transaction_detail',
         'created_at',
         'updated_at',
@@ -31,6 +32,11 @@ class Item extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function itemTransactionDetails()
+    {
+        return $this->belongsToMany(TransactionDetail::class);
     }
 
     public function product()

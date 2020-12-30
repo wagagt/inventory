@@ -17,12 +17,13 @@ class TransactionDetailApiController extends Controller
     {
         abort_if(Gate::denies('transaction_detail_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TransactionDetailResource(TransactionDetail::with(['transaction', 'producto', 'productname'])->get());
+        return new TransactionDetailResource(TransactionDetail::with(['transaction', 'items'])->get());
     }
 
     public function store(StoreTransactionDetailRequest $request)
     {
         $transactionDetail = TransactionDetail::create($request->all());
+        $transactionDetail->items()->sync($request->input('items', []));
 
         return (new TransactionDetailResource($transactionDetail))
             ->response()
@@ -33,12 +34,13 @@ class TransactionDetailApiController extends Controller
     {
         abort_if(Gate::denies('transaction_detail_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TransactionDetailResource($transactionDetail->load(['transaction', 'producto', 'productname']));
+        return new TransactionDetailResource($transactionDetail->load(['transaction', 'items']));
     }
 
     public function update(UpdateTransactionDetailRequest $request, TransactionDetail $transactionDetail)
     {
         $transactionDetail->update($request->all());
+        $transactionDetail->items()->sync($request->input('items', []));
 
         return (new TransactionDetailResource($transactionDetail))
             ->response()

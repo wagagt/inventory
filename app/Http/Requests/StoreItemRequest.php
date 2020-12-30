@@ -17,15 +17,9 @@ class StoreItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'               => [
+            'serial_number' => [
                 'string',
                 'nullable',
-            ],
-            'transaction_detail' => [
-                'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
             ],
         ];
     }

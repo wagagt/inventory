@@ -22,9 +22,6 @@ class TransactionDetail extends Model
     protected $fillable = [
         'quantity',
         'transaction_id',
-        'producto_id',
-        'product_stock',
-        'productname_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -40,13 +37,8 @@ class TransactionDetail extends Model
         return $this->belongsTo(Transaction::class, 'transaction_id');
     }
 
-    public function producto()
+    public function items()
     {
-        return $this->belongsTo(ProductsBase::class, 'producto_id');
-    }
-
-    public function productname()
-    {
-        return $this->belongsTo(Product::class, 'productname_id');
+        return $this->belongsToMany(Item::class);
     }
 }
