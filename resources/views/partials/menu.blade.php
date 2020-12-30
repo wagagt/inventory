@@ -72,7 +72,7 @@
                     </li>
                 @endcan
                 @can('basic_c_r_m_access')
-                    <li class="nav-item has-treeview {{ request()->is("admin/crm-statuses*") ? "menu-open" : "" }} {{ request()->is("admin/crm-customers*") ? "menu-open" : "" }} {{ request()->is("admin/crm-notes*") ? "menu-open" : "" }} {{ request()->is("admin/crm-documents*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/crm-statuses*") ? "menu-open" : "" }} {{ request()->is("admin/crm-customers*") ? "menu-open" : "" }} {{ request()->is("admin/crm-notes*") ? "menu-open" : "" }} {{ request()->is("admin/crm-documents*") ? "menu-open" : "" }} {{ request()->is("admin/customer-charge-accounts*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-briefcase">
 
@@ -127,6 +127,18 @@
                                         </i>
                                         <p>
                                             {{ trans('cruds.crmDocument.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('customer_charge_account_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.customer-charge-accounts.index") }}" class="nav-link {{ request()->is("admin/customer-charge-accounts") || request()->is("admin/customer-charge-accounts/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-hand-holding-usd">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.customerChargeAccount.title') }}
                                         </p>
                                     </a>
                                 </li>

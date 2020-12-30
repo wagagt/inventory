@@ -1,38 +1,47 @@
 @extends('layouts.admin')
 @section('content')
-@can('item_create')
+@can('customer_charge_account_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.items.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.item.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.customer-charge-accounts.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.customerChargeAccount.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.item.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.customerChargeAccount.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Item">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-CustomerChargeAccount">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.item.fields.id') }}
+                            {{ trans('cruds.customerChargeAccount.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.item.fields.product') }}
+                            {{ trans('cruds.customerChargeAccount.fields.date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.item.fields.serial_number') }}
+                            {{ trans('cruds.customerChargeAccount.fields.payment_type') }}
                         </th>
                         <th>
-                            {{ trans('cruds.item.fields.price') }}
+                            {{ trans('cruds.customerChargeAccount.fields.amount') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.customerChargeAccount.fields.doc_no') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.customerChargeAccount.fields.currency') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.customerChargeAccount.fields.exchage_currency') }}
                         </th>
                         <th>
                             &nbsp;
@@ -40,38 +49,47 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($items as $key => $item)
-                        <tr data-entry-id="{{ $item->id }}">
+                    @foreach($customerChargeAccounts as $key => $customerChargeAccount)
+                        <tr data-entry-id="{{ $customerChargeAccount->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $item->id ?? '' }}
+                                {{ $customerChargeAccount->id ?? '' }}
                             </td>
                             <td>
-                                {{ $item->product->name ?? '' }}
+                                {{ $customerChargeAccount->date ?? '' }}
                             </td>
                             <td>
-                                {{ $item->serial_number ?? '' }}
+                                {{ App\Models\CustomerChargeAccount::PAYMENT_TYPE_SELECT[$customerChargeAccount->payment_type] ?? '' }}
                             </td>
                             <td>
-                                {{ $item->price ?? '' }}
+                                {{ $customerChargeAccount->amount ?? '' }}
                             </td>
                             <td>
-                                @can('item_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.items.show', $item->id) }}">
+                                {{ $customerChargeAccount->doc_no ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customerChargeAccount->currency ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customerChargeAccount->exchage_currency ?? '' }}
+                            </td>
+                            <td>
+                                @can('customer_charge_account_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.customer-charge-accounts.show', $customerChargeAccount->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('item_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.items.edit', $item->id) }}">
+                                @can('customer_charge_account_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.customer-charge-accounts.edit', $customerChargeAccount->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('item_delete')
-                                    <form action="{{ route('admin.items.destroy', $item->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('customer_charge_account_delete')
+                                    <form action="{{ route('admin.customer-charge-accounts.destroy', $customerChargeAccount->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -96,11 +114,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('item_delete')
+@can('customer_charge_account_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.items.massDestroy') }}",
+    url: "{{ route('admin.customer-charge-accounts.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -131,7 +149,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-Item:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-CustomerChargeAccount:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

@@ -85,10 +85,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.productsBase.fields.marca') }}
+                            {{ trans('cruds.productsBase.fields.store') }}
                         </th>
                         <td>
-                            {{ $productsBase->marca }}
+                            {{ $productsBase->store->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>
@@ -122,11 +122,6 @@
                 {{ trans('cruds.item.title') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#producto_transaction_details" role="tab" data-toggle="tab">
-                {{ trans('cruds.transactionDetail.title') }}
-            </a>
-        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="product_product_tags">
@@ -137,9 +132,6 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="product_items">
             @includeIf('admin.productsBases.relationships.productItems', ['items' => $productsBase->productItems])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="producto_transaction_details">
-            @includeIf('admin.productsBases.relationships.productoTransactionDetails', ['transactionDetails' => $productsBase->productoTransactionDetails])
         </div>
     </div>
 </div>

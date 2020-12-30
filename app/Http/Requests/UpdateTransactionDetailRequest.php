@@ -17,17 +17,17 @@ class UpdateTransactionDetailRequest extends FormRequest
     public function rules()
     {
         return [
-            'quantity'      => [
+            'quantity' => [
                 'required',
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',
             ],
-            'product_stock' => [
-                'nullable',
+            'items.*'  => [
                 'integer',
-                'min:-2147483648',
-                'max:2147483647',
+            ],
+            'items'    => [
+                'array',
             ],
         ];
     }

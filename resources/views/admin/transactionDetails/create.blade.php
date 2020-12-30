@@ -30,36 +30,20 @@
                 <span class="help-block">{{ trans('cruds.transactionDetail.fields.transaction_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="producto_id">{{ trans('cruds.transactionDetail.fields.producto') }}</label>
-                <select class="form-control select2 {{ $errors->has('producto') ? 'is-invalid' : '' }}" name="producto_id" id="producto_id">
-                    @foreach($productos as $id => $producto)
-                        <option value="{{ $id }}" {{ old('producto_id') == $id ? 'selected' : '' }}>{{ $producto }}</option>
+                <label for="items">{{ trans('cruds.transactionDetail.fields.item') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('items') ? 'is-invalid' : '' }}" name="items[]" id="items" multiple>
+                    @foreach($items as $id => $item)
+                        <option value="{{ $id }}" {{ in_array($id, old('items', [])) ? 'selected' : '' }}>{{ $item }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('producto'))
-                    <span class="text-danger">{{ $errors->first('producto') }}</span>
+                @if($errors->has('items'))
+                    <span class="text-danger">{{ $errors->first('items') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.transactionDetail.fields.producto_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="product_stock">{{ trans('cruds.transactionDetail.fields.product_stock') }}</label>
-                <input class="form-control {{ $errors->has('product_stock') ? 'is-invalid' : '' }}" type="number" name="product_stock" id="product_stock" value="{{ old('product_stock', '') }}" step="1">
-                @if($errors->has('product_stock'))
-                    <span class="text-danger">{{ $errors->first('product_stock') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.transactionDetail.fields.product_stock_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="productname_id">{{ trans('cruds.transactionDetail.fields.productname') }}</label>
-                <select class="form-control select2 {{ $errors->has('productname') ? 'is-invalid' : '' }}" name="productname_id" id="productname_id">
-                    @foreach($productnames as $id => $productname)
-                        <option value="{{ $id }}" {{ old('productname_id') == $id ? 'selected' : '' }}>{{ $productname }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('productname'))
-                    <span class="text-danger">{{ $errors->first('productname') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.transactionDetail.fields.productname_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.transactionDetail.fields.item_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

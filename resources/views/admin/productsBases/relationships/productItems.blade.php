@@ -25,13 +25,13 @@
                                 {{ trans('cruds.item.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.item.fields.code') }}
-                            </th>
-                            <th>
                                 {{ trans('cruds.item.fields.product') }}
                             </th>
                             <th>
-                                {{ trans('cruds.item.fields.transaction_detail') }}
+                                {{ trans('cruds.item.fields.serial_number') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.item.fields.price') }}
                             </th>
                             <th>
                                 &nbsp;
@@ -48,13 +48,13 @@
                                     {{ $item->id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $item->code ?? '' }}
-                                </td>
-                                <td>
                                     {{ $item->product->name ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $item->transaction_detail ?? '' }}
+                                    {{ $item->serial_number ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $item->price ?? '' }}
                                 </td>
                                 <td>
                                     @can('item_show')

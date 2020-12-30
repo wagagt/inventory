@@ -35,6 +35,11 @@ class Store extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function storeProductsBases()
+    {
+        return $this->hasMany(ProductsBase::class, 'store_id', 'id');
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

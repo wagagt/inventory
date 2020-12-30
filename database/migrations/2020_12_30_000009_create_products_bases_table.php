@@ -15,7 +15,6 @@ class CreateProductsBasesTable extends Migration
             $table->string('stock')->nullable();
             $table->string('min_stock')->nullable();
             $table->string('max_stock')->nullable();
-            $table->string('marca')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

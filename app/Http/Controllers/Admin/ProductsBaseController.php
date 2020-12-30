@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProductsBaseRequest;
 use App\Models\ProductCategory;
 use App\Models\ProductsBase;
 use App\Models\Provider;
+use App\Models\Store;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ class ProductsBaseController extends Controller
     {
         abort_if(Gate::denies('products_base_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productsBases = ProductsBase::with(['categories', 'providers'])->get();
+        $productsBases = ProductsBase::with(['categories', 'providers', 'store'])->get();
 
         return view('admin.productsBases.index', compact('productsBases'));
     }
@@ -32,7 +33,9 @@ class ProductsBaseController extends Controller
 
         $providers = Provider::all()->pluck('name', 'id');
 
-        return view('admin.productsBases.create', compact('categories', 'providers'));
+        $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.productsBases.create', compact('categories', 'providers', 'stores'));
     }
 
     public function store(StoreProductsBaseRequest $request)
@@ -52,9 +55,11 @@ class ProductsBaseController extends Controller
 
         $providers = Provider::all()->pluck('name', 'id');
 
-        $productsBase->load('categories', 'providers');
+        $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.productsBases.edit', compact('categories', 'providers', 'productsBase'));
+        $productsBase->load('categories', 'providers', 'store');
+
+        return view('admin.productsBases.edit', compact('categories', 'providers', 'stores', 'productsBase'));
     }
 
     public function update(UpdateProductsBaseRequest $request, ProductsBase $productsBase)
@@ -70,7 +75,7 @@ class ProductsBaseController extends Controller
     {
         abort_if(Gate::denies('products_base_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productsBase->load('categories', 'providers', 'productProductTags', 'productProductSpecs', 'productItems', 'productoTransactionDetails');
+        $productsBase->load('categories', 'providers', 'store', 'productProductTags', 'productProductSpecs', 'productItems', 'productoTransactionDetails');
 
         return view('admin.productsBases.show', compact('productsBase'));
     }

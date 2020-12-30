@@ -92,6 +92,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Transaction Details
     Route::delete('transaction-details/destroy', 'TransactionDetailController@massDestroy')->name('transaction-details.massDestroy');
     Route::resource('transaction-details', 'TransactionDetailController');
+
+    // Customer Charge Accounts
+    Route::delete('customer-charge-accounts/destroy', 'CustomerChargeAccountsController@massDestroy')->name('customer-charge-accounts.massDestroy');
+    Route::resource('customer-charge-accounts', 'CustomerChargeAccountsController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password

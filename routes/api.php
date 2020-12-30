@@ -59,4 +59,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Transaction Details
     Route::apiResource('transaction-details', 'TransactionDetailApiController');
+
+    // Customer Charge Accounts
+    Route::apiResource('customer-charge-accounts', 'CustomerChargeAccountsApiController');
 });

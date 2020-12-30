@@ -37,9 +37,4 @@ class Product extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
-
-    public function productnameTransactionDetails()
-    {
-        return $this->hasMany(TransactionDetail::class, 'productname_id', 'id');
-    }
 }

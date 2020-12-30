@@ -61,7 +61,7 @@ class ItemsController extends Controller
     {
         abort_if(Gate::denies('item_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $item->load('product');
+        $item->load('product', 'itemTransactionDetails');
 
         return view('admin.items.show', compact('item'));
     }

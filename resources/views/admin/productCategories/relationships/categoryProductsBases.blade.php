@@ -46,7 +46,7 @@
                                 {{ trans('cruds.productsBase.fields.provider') }}
                             </th>
                             <th>
-                                {{ trans('cruds.productsBase.fields.marca') }}
+                                {{ trans('cruds.productsBase.fields.store') }}
                             </th>
                             <th>
                                 &nbsp;
@@ -88,7 +88,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    {{ $productsBase->marca ?? '' }}
+                                    {{ $productsBase->store->name ?? '' }}
                                 </td>
                                 <td>
                                     @can('products_base_show')

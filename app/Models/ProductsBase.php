@@ -25,7 +25,7 @@ class ProductsBase extends Model
         'stock',
         'min_stock',
         'max_stock',
-        'marca',
+        'store_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -51,11 +51,6 @@ class ProductsBase extends Model
         return $this->hasMany(Item::class, 'product_id', 'id');
     }
 
-    public function productoTransactionDetails()
-    {
-        return $this->hasMany(TransactionDetail::class, 'producto_id', 'id');
-    }
-
     public function categories()
     {
         return $this->belongsToMany(ProductCategory::class);
@@ -64,5 +59,10 @@ class ProductsBase extends Model
     public function providers()
     {
         return $this->belongsToMany(Provider::class);
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'store_id');
     }
 }

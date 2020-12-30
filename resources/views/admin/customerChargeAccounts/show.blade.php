@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.product.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.customerChargeAccount.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.products.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.customer-charge-accounts.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,80 +17,64 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.id') }}
+                            {{ trans('cruds.customerChargeAccount.fields.id') }}
                         </th>
                         <td>
-                            {{ $product->id }}
+                            {{ $customerChargeAccount->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.name') }}
+                            {{ trans('cruds.customerChargeAccount.fields.date') }}
                         </th>
                         <td>
-                            {{ $product->name }}
+                            {{ $customerChargeAccount->date }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.description') }}
+                            {{ trans('cruds.customerChargeAccount.fields.payment_type') }}
                         </th>
                         <td>
-                            {{ $product->description }}
+                            {{ App\Models\CustomerChargeAccount::PAYMENT_TYPE_SELECT[$customerChargeAccount->payment_type] ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.price') }}
+                            {{ trans('cruds.customerChargeAccount.fields.amount') }}
                         </th>
                         <td>
-                            {{ $product->price }}
+                            {{ $customerChargeAccount->amount }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.code') }}
+                            {{ trans('cruds.customerChargeAccount.fields.doc_no') }}
                         </th>
                         <td>
-                            {{ $product->code }}
+                            {{ $customerChargeAccount->doc_no }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.internal_code') }}
+                            {{ trans('cruds.customerChargeAccount.fields.currency') }}
                         </th>
                         <td>
-                            {{ $product->internal_code }}
+                            {{ $customerChargeAccount->currency }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.stock') }}
+                            {{ trans('cruds.customerChargeAccount.fields.exchage_currency') }}
                         </th>
                         <td>
-                            {{ $product->stock }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.product.fields.min_stock') }}
-                        </th>
-                        <td>
-                            {{ $product->min_stock }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.product.fields.max_stock') }}
-                        </th>
-                        <td>
-                            {{ $product->max_stock }}
+                            {{ $customerChargeAccount->exchage_currency }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.products.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.customer-charge-accounts.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

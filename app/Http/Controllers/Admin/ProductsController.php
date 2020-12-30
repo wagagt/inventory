@@ -54,8 +54,6 @@ class ProductsController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('productnameTransactionDetails');
-
         return view('admin.products.show', compact('product'));
     }
 
