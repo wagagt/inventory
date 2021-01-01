@@ -323,6 +323,69 @@
                         </ul>
                     </li>
                 @endcan
+                @can('admin_survey_access')
+                    <li class="nav-item has-treeview {{ request()->is("admin/survey-ubications*") ? "menu-open" : "" }} {{ request()->is("admin/surveys*") ? "menu-open" : "" }} {{ request()->is("admin/survey-asks*") ? "menu-open" : "" }} {{ request()->is("admin/ask-types*") ? "menu-open" : "" }}">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
+                            <i class="fa-fw nav-icon far fa-file-archive">
+
+                            </i>
+                            <p>
+                                {{ trans('cruds.adminSurvey.title') }}
+                                <i class="right fa fa-fw fa-angle-left nav-icon"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('survey_ubication_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.survey-ubications.index") }}" class="nav-link {{ request()->is("admin/survey-ubications") || request()->is("admin/survey-ubications/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-location-arrow">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.surveyUbication.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('survey_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.surveys.index") }}" class="nav-link {{ request()->is("admin/surveys") || request()->is("admin/surveys/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon far fa-file-alt">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.survey.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('survey_ask_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.survey-asks.index") }}" class="nav-link {{ request()->is("admin/survey-asks") || request()->is("admin/survey-asks/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-question-circle">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.surveyAsk.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('ask_type_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.ask-types.index") }}" class="nav-link {{ request()->is("admin/ask-types") || request()->is("admin/ask-types/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon far fa-question-circle">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.askType.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
                 @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
                         <li class="nav-item">

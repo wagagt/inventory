@@ -432,6 +432,90 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 106,
+                'title' => 'admin_survey_access',
+            ],
+            [
+                'id'    => 107,
+                'title' => 'survey_ubication_create',
+            ],
+            [
+                'id'    => 108,
+                'title' => 'survey_ubication_edit',
+            ],
+            [
+                'id'    => 109,
+                'title' => 'survey_ubication_show',
+            ],
+            [
+                'id'    => 110,
+                'title' => 'survey_ubication_delete',
+            ],
+            [
+                'id'    => 111,
+                'title' => 'survey_ubication_access',
+            ],
+            [
+                'id'    => 112,
+                'title' => 'survey_create',
+            ],
+            [
+                'id'    => 113,
+                'title' => 'survey_edit',
+            ],
+            [
+                'id'    => 114,
+                'title' => 'survey_show',
+            ],
+            [
+                'id'    => 115,
+                'title' => 'survey_delete',
+            ],
+            [
+                'id'    => 116,
+                'title' => 'survey_access',
+            ],
+            [
+                'id'    => 117,
+                'title' => 'survey_ask_create',
+            ],
+            [
+                'id'    => 118,
+                'title' => 'survey_ask_edit',
+            ],
+            [
+                'id'    => 119,
+                'title' => 'survey_ask_show',
+            ],
+            [
+                'id'    => 120,
+                'title' => 'survey_ask_delete',
+            ],
+            [
+                'id'    => 121,
+                'title' => 'survey_ask_access',
+            ],
+            [
+                'id'    => 122,
+                'title' => 'ask_type_create',
+            ],
+            [
+                'id'    => 123,
+                'title' => 'ask_type_edit',
+            ],
+            [
+                'id'    => 124,
+                'title' => 'ask_type_show',
+            ],
+            [
+                'id'    => 125,
+                'title' => 'ask_type_delete',
+            ],
+            [
+                'id'    => 126,
+                'title' => 'ask_type_access',
+            ],
+            [
+                'id'    => 127,
                 'title' => 'profile_password_edit',
             ],
         ];
