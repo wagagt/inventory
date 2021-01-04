@@ -432,6 +432,130 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 106,
+                'title' => 'admin_survey_access',
+            ],
+            [
+                'id'    => 107,
+                'title' => 'survey_ubication_create',
+            ],
+            [
+                'id'    => 108,
+                'title' => 'survey_ubication_edit',
+            ],
+            [
+                'id'    => 109,
+                'title' => 'survey_ubication_show',
+            ],
+            [
+                'id'    => 110,
+                'title' => 'survey_ubication_delete',
+            ],
+            [
+                'id'    => 111,
+                'title' => 'survey_ubication_access',
+            ],
+            [
+                'id'    => 112,
+                'title' => 'survey_create',
+            ],
+            [
+                'id'    => 113,
+                'title' => 'survey_edit',
+            ],
+            [
+                'id'    => 114,
+                'title' => 'survey_show',
+            ],
+            [
+                'id'    => 115,
+                'title' => 'survey_delete',
+            ],
+            [
+                'id'    => 116,
+                'title' => 'survey_access',
+            ],
+            [
+                'id'    => 117,
+                'title' => 'survey_detail_create',
+            ],
+            [
+                'id'    => 118,
+                'title' => 'survey_detail_edit',
+            ],
+            [
+                'id'    => 119,
+                'title' => 'survey_detail_show',
+            ],
+            [
+                'id'    => 120,
+                'title' => 'survey_detail_delete',
+            ],
+            [
+                'id'    => 121,
+                'title' => 'survey_detail_access',
+            ],
+            [
+                'id'    => 122,
+                'title' => 'survey_ask_type_create',
+            ],
+            [
+                'id'    => 123,
+                'title' => 'survey_ask_type_edit',
+            ],
+            [
+                'id'    => 124,
+                'title' => 'survey_ask_type_show',
+            ],
+            [
+                'id'    => 125,
+                'title' => 'survey_ask_type_delete',
+            ],
+            [
+                'id'    => 126,
+                'title' => 'survey_ask_type_access',
+            ],
+            [
+                'id'    => 127,
+                'title' => 'survey_responder_create',
+            ],
+            [
+                'id'    => 128,
+                'title' => 'survey_responder_edit',
+            ],
+            [
+                'id'    => 129,
+                'title' => 'survey_responder_show',
+            ],
+            [
+                'id'    => 130,
+                'title' => 'survey_responder_delete',
+            ],
+            [
+                'id'    => 131,
+                'title' => 'survey_responder_access',
+            ],
+            [
+                'id'    => 132,
+                'title' => 'survey_response_create',
+            ],
+            [
+                'id'    => 133,
+                'title' => 'survey_response_edit',
+            ],
+            [
+                'id'    => 134,
+                'title' => 'survey_response_show',
+            ],
+            [
+                'id'    => 135,
+                'title' => 'survey_response_delete',
+            ],
+            [
+                'id'    => 136,
+                'title' => 'survey_response_access',
+            ],
+            [
+                'id'    => 137,
                 'title' => 'profile_password_edit',
             ],
         ];
