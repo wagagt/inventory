@@ -62,4 +62,22 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Customer Charge Accounts
     Route::apiResource('customer-charge-accounts', 'CustomerChargeAccountsApiController');
+
+    // Survey Ubications
+    Route::apiResource('survey-ubications', 'SurveyUbicationsApiController');
+
+    // Surveys
+    Route::apiResource('surveys', 'SurveysApiController');
+
+    // Survey Details
+    Route::apiResource('survey-details', 'SurveyDetailApiController');
+
+    // Survey Ask Types
+    Route::apiResource('survey-ask-types', 'SurveyAskTypesApiController');
+
+    // Survey Responders
+    Route::apiResource('survey-responders', 'SurveyRespondersApiController');
+
+    // Survey Responses
+    Route::apiResource('survey-responses', 'SurveyResponsesApiController');
 });

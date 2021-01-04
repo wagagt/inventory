@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.user.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.surveyUbication.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.users.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.survey-ubications.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,50 +17,56 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.id') }}
+                            {{ trans('cruds.surveyUbication.fields.id') }}
                         </th>
                         <td>
-                            {{ $user->id }}
+                            {{ $surveyUbication->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.name') }}
+                            {{ trans('cruds.surveyUbication.fields.name') }}
                         </th>
                         <td>
-                            {{ $user->name }}
+                            {{ $surveyUbication->name }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.email') }}
+                            {{ trans('cruds.surveyUbication.fields.address') }}
                         </th>
                         <td>
-                            {{ $user->email }}
+                            {{ $surveyUbication->address }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.email_verified_at') }}
+                            {{ trans('cruds.surveyUbication.fields.zone') }}
                         </th>
                         <td>
-                            {{ $user->email_verified_at }}
+                            {{ $surveyUbication->zone }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.roles') }}
+                            {{ trans('cruds.surveyUbication.fields.city') }}
                         </th>
                         <td>
-                            @foreach($user->roles as $key => $roles)
-                                <span class="label label-info">{{ $roles->title }}</span>
-                            @endforeach
+                            {{ $surveyUbication->city }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.surveyUbication.fields.department') }}
+                        </th>
+                        <td>
+                            {{ $surveyUbication->department }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.users.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.survey-ubications.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -74,22 +80,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#user_surveys" role="tab" data-toggle="tab">
+            <a class="nav-link" href="#ubication_surveys" role="tab" data-toggle="tab">
                 {{ trans('cruds.survey.title') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#user_stores" role="tab" data-toggle="tab">
-                {{ trans('cruds.store.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="user_surveys">
-            @includeIf('admin.users.relationships.userSurveys', ['surveys' => $user->userSurveys])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="user_stores">
-            @includeIf('admin.users.relationships.userStores', ['stores' => $user->userStores])
+        <div class="tab-pane" role="tabpanel" id="ubication_surveys">
+            @includeIf('admin.surveyUbications.relationships.ubicationSurveys', ['surveys' => $surveyUbication->ubicationSurveys])
         </div>
     </div>
 </div>
