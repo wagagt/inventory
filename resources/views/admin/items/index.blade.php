@@ -35,6 +35,9 @@
                             {{ trans('cruds.item.fields.price') }}
                         </th>
                         <th>
+                            {{ trans('cruds.item.fields.store') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -56,6 +59,9 @@
                             </td>
                             <td>
                                 {{ $item->price ?? '' }}
+                            </td>
+                            <td>
+                                {{ $item->store->name ?? '' }}
                             </td>
                             <td>
                                 @can('item_show')

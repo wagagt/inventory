@@ -25,7 +25,6 @@ class ProductsBase extends Model
         'stock',
         'min_stock',
         'max_stock',
-        'store_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -59,10 +58,5 @@ class ProductsBase extends Model
     public function providers()
     {
         return $this->belongsToMany(Provider::class);
-    }
-
-    public function store()
-    {
-        return $this->belongsTo(Store::class, 'store_id');
     }
 }
