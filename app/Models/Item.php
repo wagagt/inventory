@@ -24,6 +24,7 @@ class Item extends Model
         'serial_number',
         'price',
         'transaction_detail',
+        'store_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -42,5 +43,10 @@ class Item extends Model
     public function product()
     {
         return $this->belongsTo(ProductsBase::class, 'product_id');
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'store_id');
     }
 }

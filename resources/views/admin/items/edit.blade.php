@@ -47,6 +47,18 @@
                 <span class="help-block">{{ trans('cruds.item.fields.transaction_detail_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="store_id">{{ trans('cruds.item.fields.store') }}</label>
+                <select class="form-control select2 {{ $errors->has('store') ? 'is-invalid' : '' }}" name="store_id" id="store_id">
+                    @foreach($stores as $id => $store)
+                        <option value="{{ $id }}" {{ (old('store_id') ? old('store_id') : $item->store->id ?? '') == $id ? 'selected' : '' }}>{{ $store }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('store'))
+                    <span class="text-danger">{{ $errors->first('store') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.item.fields.store_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

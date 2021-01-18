@@ -49,10 +49,6 @@ class StoreProductsBaseRequest extends FormRequest
             'providers'    => [
                 'array',
             ],
-            'store_id'     => [
-                'required',
-                'integer',
-            ],
         ];
     }
 }

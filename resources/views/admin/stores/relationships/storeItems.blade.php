@@ -15,7 +15,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-productItems">
+                <table class=" table table-bordered table-striped table-hover datatable datatable-storeItems">
                     <thead>
                         <tr>
                             <th width="10">
@@ -133,7 +133,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-productItems:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-storeItems:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

@@ -35,9 +35,9 @@ class Store extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function storeProductsBases()
+    public function storeItems()
     {
-        return $this->hasMany(ProductsBase::class, 'store_id', 'id');
+        return $this->hasMany(Item::class, 'store_id', 'id');
     }
 
     public function users()

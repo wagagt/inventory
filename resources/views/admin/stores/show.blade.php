@@ -90,14 +90,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#store_products_bases" role="tab" data-toggle="tab">
-                {{ trans('cruds.productsBase.title') }}
+            <a class="nav-link" href="#store_items" role="tab" data-toggle="tab">
+                {{ trans('cruds.item.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="store_products_bases">
-            @includeIf('admin.stores.relationships.storeProductsBases', ['productsBases' => $store->storeProductsBases])
+        <div class="tab-pane" role="tabpanel" id="store_items">
+            @includeIf('admin.stores.relationships.storeItems', ['items' => $store->storeItems])
         </div>
     </div>
 </div>

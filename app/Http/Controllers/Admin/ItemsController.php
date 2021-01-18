@@ -8,6 +8,7 @@ use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
 use App\Models\ProductsBase;
+use App\Models\Store;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ class ItemsController extends Controller
     {
         abort_if(Gate::denies('item_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $items = Item::with(['product'])->get();
+        $items = Item::with(['product', 'store'])->get();
 
         return view('admin.items.index', compact('items'));
     }
@@ -29,7 +30,9 @@ class ItemsController extends Controller
 
         $products = ProductsBase::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.items.create', compact('products'));
+        $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.items.create', compact('products', 'stores'));
     }
 
     public function store(StoreItemRequest $request)
@@ -45,9 +48,11 @@ class ItemsController extends Controller
 
         $products = ProductsBase::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $item->load('product');
+        $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.items.edit', compact('products', 'item'));
+        $item->load('product', 'store');
+
+        return view('admin.items.edit', compact('products', 'stores', 'item'));
     }
 
     public function update(UpdateItemRequest $request, Item $item)
@@ -61,7 +66,7 @@ class ItemsController extends Controller
     {
         abort_if(Gate::denies('item_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $item->load('product', 'itemTransactionDetails');
+        $item->load('product', 'store', 'itemTransactionDetails');
 
         return view('admin.items.show', compact('item'));
     }
