@@ -66,7 +66,7 @@ class SurveysController extends Controller
     {
         abort_if(Gate::denies('survey_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $survey->load('ubication', 'user');
+        $survey->load('ubication', 'user', 'surveySurveyDetails', 'surveySurveyResponses');
 
         return view('admin.surveys.show', compact('survey'));
     }

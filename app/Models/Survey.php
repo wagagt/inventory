@@ -39,6 +39,16 @@ class Survey extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function surveySurveyDetails()
+    {
+        return $this->hasMany(SurveyDetail::class, 'survey_id', 'id');
+    }
+
+    public function surveySurveyResponses()
+    {
+        return $this->hasMany(SurveyResponse::class, 'survey_id', 'id');
+    }
+
     public function getDateStartAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;

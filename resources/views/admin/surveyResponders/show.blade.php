@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.survey.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.surveyResponder.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.surveys.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.survey-responders.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,64 +17,72 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.survey.fields.id') }}
+                            {{ trans('cruds.surveyResponder.fields.id') }}
                         </th>
                         <td>
-                            {{ $survey->id }}
+                            {{ $surveyResponder->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.survey.fields.name') }}
+                            {{ trans('cruds.surveyResponder.fields.names') }}
                         </th>
                         <td>
-                            {{ $survey->name }}
+                            {{ $surveyResponder->names }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.survey.fields.description') }}
+                            {{ trans('cruds.surveyResponder.fields.last_names') }}
                         </th>
                         <td>
-                            {{ $survey->description }}
+                            {{ $surveyResponder->last_names }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.survey.fields.date_start') }}
+                            {{ trans('cruds.surveyResponder.fields.identification') }}
                         </th>
                         <td>
-                            {{ $survey->date_start }}
+                            {{ $surveyResponder->identification }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.survey.fields.date_end') }}
+                            {{ trans('cruds.surveyResponder.fields.email') }}
                         </th>
                         <td>
-                            {{ $survey->date_end }}
+                            {{ $surveyResponder->email }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.survey.fields.ubication') }}
+                            {{ trans('cruds.surveyResponder.fields.dob') }}
                         </th>
                         <td>
-                            {{ $survey->ubication->name ?? '' }}
+                            {{ $surveyResponder->dob }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.survey.fields.user') }}
+                            {{ trans('cruds.surveyResponder.fields.company') }}
                         </th>
                         <td>
-                            {{ $survey->user->name ?? '' }}
+                            {{ $surveyResponder->company }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.surveyResponder.fields.position') }}
+                        </th>
+                        <td>
+                            {{ $surveyResponder->position }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.surveys.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.survey-responders.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -88,22 +96,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#survey_survey_details" role="tab" data-toggle="tab">
-                {{ trans('cruds.surveyDetail.title') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#survey_survey_responses" role="tab" data-toggle="tab">
+            <a class="nav-link" href="#responder_survey_responses" role="tab" data-toggle="tab">
                 {{ trans('cruds.surveyResponse.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="survey_survey_details">
-            @includeIf('admin.surveys.relationships.surveySurveyDetails', ['surveyDetails' => $survey->surveySurveyDetails])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="survey_survey_responses">
-            @includeIf('admin.surveys.relationships.surveySurveyResponses', ['surveyResponses' => $survey->surveySurveyResponses])
+        <div class="tab-pane" role="tabpanel" id="responder_survey_responses">
+            @includeIf('admin.surveyResponders.relationships.responderSurveyResponses', ['surveyResponses' => $surveyResponder->responderSurveyResponses])
         </div>
     </div>
 </div>

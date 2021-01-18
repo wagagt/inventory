@@ -1,0 +1,36 @@
+version: "2"
+
+services:
+  mariadb:
+    image: "docker.io/bitnami/mariadb:10.2-debian-10"
+    ports:
+      - 3307:3306
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=inventory
+      - MARIADB_DATABASE=inventory
+      - MARIADB_PASSWORD=inventory
+    volumes:
+      - ./mariadb:/bitnami/mariadb
+  myapp:
+    tty: true
+    image: docker.io/bitnami/laravel:8-debian-10
+    environment:
+      - DB_HOST=mariadb
+      - DB_USERNAME=inventory
+      - DB_DATABASE=inventory
+      - DB_PASSWORD=inventory
+    depends_on:
+      - mariadb
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+  phpmyadmin:
+    image: "docker.io/bitnami/phpmyadmin:latest"
+    depends_on:
+      - mariadb
+    ports:
+      - 81:8080
+      - 443:8443
+    # privileged: true # Privileged mode could be required to run this container under Windows
