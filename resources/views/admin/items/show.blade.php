@@ -55,6 +55,14 @@
                             {{ $item->transaction_detail }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.item.fields.store') }}
+                        </th>
+                        <td>
+                            {{ $item->store->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

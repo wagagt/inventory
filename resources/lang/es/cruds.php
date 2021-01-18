@@ -313,8 +313,6 @@ return [
             'category_helper'    => ' ',
             'provider'           => 'Provider',
             'provider_helper'    => ' ',
-            'store'              => 'Store',
-            'store_helper'       => ' ',
         ],
     ],
     'productSpec'           => [
@@ -359,6 +357,8 @@ return [
             'price_helper'              => ' ',
             'transaction_detail'        => 'Transaction Detail',
             'transaction_detail_helper' => ' ',
+            'store'                     => 'Store',
+            'store_helper'              => ' ',
         ],
     ],
     'adminTransaction'      => [
