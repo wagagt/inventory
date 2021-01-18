@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Factories;
 
 use App\Models\CrmCustomer;
@@ -21,14 +22,14 @@ class CrmCustomerFactory extends Factory
     public function definition()
     {
         return [
-        'first_name'        =>  $this->faker->firstName,
-        'last_name'     =>  $this->faker->lastName,
-        'email'     =>  $this->faker->email,
-        'phone'     =>  $this->faker->phoneNumber,
-        'address'       =>  $this->faker->address,
-        'skype'     =>  $this->faker->userName,
-        'website'       =>  $this->faker->url,
-        'description'       =>  $this->faker->sentence($nbWords = 6, $variableNbWords = true),
+            'first_name' =>  $this->faker->firstName,
+            'last_name' =>  $this->faker->lastName,
+            'email' =>  $this->faker->email,
+            'phone' =>  $this->faker->phoneNumber,
+            'address' =>  $this->faker->address,
+            'skype' =>  $this->faker->userName,
+            'website' =>  $this->faker->url,
+            'description' =>  $this->faker->sentence($nbWords = 6, $variableNbWords = true),
         ];
     }
 }
