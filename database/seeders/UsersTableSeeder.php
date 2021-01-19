@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             [
                 'id'             => 2,
                 'name'           => 'wagagt',
-                'email'          => 'wagat@admin.com',
+                'email'          => 'wagagt@admin.com',
                 'password'       => bcrypt('wagapass'),
                 'remember_token' => null,
             ],
