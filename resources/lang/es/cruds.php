@@ -287,7 +287,7 @@ return [
             'deleted_at_helper'    => ' ',
         ],
     ],
-    'productsBase'          => [
+    'products'          => [
         'title'          => 'Products',
         'title_singular' => 'Product',
         'fields'         => [
