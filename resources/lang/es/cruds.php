@@ -287,7 +287,7 @@ return [
             'deleted_at_helper'    => ' ',
         ],
     ],
-    'products'          => [
+    'productsBase'          => [
         'title'          => 'Products',
         'title_singular' => 'Product',
         'fields'         => [
@@ -469,8 +469,6 @@ return [
             'amount_helper'           => ' ',
             'doc_no'                  => 'Document No',
             'doc_no_helper'           => ' ',
-            'currency'                => 'Currency',
-            'currency_helper'         => ' ',
             'exchage_currency'        => 'Exchage Currency',
             'exchage_currency_helper' => ' ',
             'created_at'              => 'Created at',
@@ -479,6 +477,10 @@ return [
             'updated_at_helper'       => ' ',
             'deleted_at'              => 'Deleted at',
             'deleted_at_helper'       => ' ',
+            'customer'                => 'Customer',
+            'customer_helper'         => ' ',
+            'currency'                => 'Currency',
+            'currency_helper'         => ' ',
         ],
     ],
     'adminSurvey'           => [

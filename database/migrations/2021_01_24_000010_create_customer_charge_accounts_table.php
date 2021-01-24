@@ -14,8 +14,8 @@ class CreateCustomerChargeAccountsTable extends Migration
             $table->string('payment_type');
             $table->decimal('amount', 15, 2);
             $table->string('doc_no')->nullable();
-            $table->string('currency')->nullable();
             $table->decimal('exchage_currency', 15, 2)->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -48,20 +48,37 @@
                 <span class="help-block">{{ trans('cruds.customerChargeAccount.fields.doc_no_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="currency">{{ trans('cruds.customerChargeAccount.fields.currency') }}</label>
-                <input class="form-control {{ $errors->has('currency') ? 'is-invalid' : '' }}" type="text" name="currency" id="currency" value="{{ old('currency', $customerChargeAccount->currency) }}">
-                @if($errors->has('currency'))
-                    <span class="text-danger">{{ $errors->first('currency') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.customerChargeAccount.fields.currency_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="exchage_currency">{{ trans('cruds.customerChargeAccount.fields.exchage_currency') }}</label>
                 <input class="form-control {{ $errors->has('exchage_currency') ? 'is-invalid' : '' }}" type="number" name="exchage_currency" id="exchage_currency" value="{{ old('exchage_currency', $customerChargeAccount->exchage_currency) }}" step="0.01">
                 @if($errors->has('exchage_currency'))
                     <span class="text-danger">{{ $errors->first('exchage_currency') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.customerChargeAccount.fields.exchage_currency_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="customer_id">{{ trans('cruds.customerChargeAccount.fields.customer') }}</label>
+                <select class="form-control select2 {{ $errors->has('customer') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id" required>
+                    @foreach($customers as $id => $customer)
+                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $customerChargeAccount->customer->id ?? '') == $id ? 'selected' : '' }}>{{ $customer }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('customer'))
+                    <span class="text-danger">{{ $errors->first('customer') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.customerChargeAccount.fields.customer_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label>{{ trans('cruds.customerChargeAccount.fields.currency') }}</label>
+                <select class="form-control {{ $errors->has('currency') ? 'is-invalid' : '' }}" name="currency" id="currency">
+                    <option value disabled {{ old('currency', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                    @foreach(App\Models\CustomerChargeAccount::CURRENCY_SELECT as $key => $label)
+                        <option value="{{ $key }}" {{ old('currency', $customerChargeAccount->currency) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('currency'))
+                    <span class="text-danger">{{ $errors->first('currency') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.customerChargeAccount.fields.currency_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

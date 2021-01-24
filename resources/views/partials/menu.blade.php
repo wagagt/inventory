@@ -186,7 +186,7 @@
                     </li>
                 @endcan
                 @can('admin_product_access')
-                    <li class="nav-item has-treeview {{ request()->is("admin/product-categories*") ? "menu-open" : "" }} {{ request()->is("admin/product-tags*") ? "menu-open" : "" }} {{ request()->is("admin/products*") ? "menu-open" : "" }} {{ request()->is("admin/product-specs*") ? "menu-open" : "" }} {{ request()->is("admin/items*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/product-categories*") ? "menu-open" : "" }} {{ request()->is("admin/product-tags*") ? "menu-open" : "" }} {{ request()->is("admin/products-bases*") ? "menu-open" : "" }} {{ request()->is("admin/product-specs*") ? "menu-open" : "" }} {{ request()->is("admin/items*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-th">
 
@@ -221,14 +221,14 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('product_access')
+                            @can('products_base_access')
                                 <li class="nav-item">
-                                    <a href="{{ route("admin.products.index") }}" class="nav-link {{ request()->is("admin/products") || request()->is("admin/products/*") ? "active" : "" }}">
+                                    <a href="{{ route("admin.products-bases.index") }}" class="nav-link {{ request()->is("admin/products-bases") || request()->is("admin/products-bases/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-boxes">
 
                                         </i>
                                         <p>
-                                            {{ trans('cruds.products.title') }}
+                                            {{ trans('cruds.productsBase.title') }}
                                         </p>
                                     </a>
                                 </li>

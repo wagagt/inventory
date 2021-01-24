@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyProductTagRequest;
 use App\Http\Requests\StoreProductTagRequest;
 use App\Http\Requests\UpdateProductTagRequest;
-use App\Models\Product;
+use App\Models\ProductsBase;
 use App\Models\ProductTag;
 use Gate;
 use Illuminate\Http\Request;
@@ -16,7 +16,6 @@ class ProductTagController extends Controller
 {
     public function index()
     {
-
         abort_if(Gate::denies('product_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $productTags = ProductTag::with(['product'])->get();
@@ -28,7 +27,7 @@ class ProductTagController extends Controller
     {
         abort_if(Gate::denies('product_tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products = Product::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $products = ProductsBase::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.productTags.create', compact('products'));
     }
@@ -44,7 +43,7 @@ class ProductTagController extends Controller
     {
         abort_if(Gate::denies('product_tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products = Product::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $products = ProductsBase::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $productTag->load('product');
 

@@ -21,13 +21,21 @@ class CustomerChargeAccount extends Model
         'deleted_at',
     ];
 
+    const CURRENCY_SELECT = [
+        'QTZ' => 'Quetzalez',
+        'USD' => 'Dolares Americanos',
+        'EUR' => 'Euros',
+        'GBP' => 'Libra Esterlina',
+    ];
+
     protected $fillable = [
         'date',
         'payment_type',
         'amount',
         'doc_no',
-        'currency',
         'exchage_currency',
+        'customer_id',
+        'currency',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -55,5 +63,10 @@ class CustomerChargeAccount extends Model
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(CrmCustomer::class, 'customer_id');
     }
 }

@@ -17,7 +17,7 @@ class CustomerChargeAccountsApiController extends Controller
     {
         abort_if(Gate::denies('customer_charge_account_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new CustomerChargeAccountResource(CustomerChargeAccount::all());
+        return new CustomerChargeAccountResource(CustomerChargeAccount::with(['customer'])->get());
     }
 
     public function store(StoreCustomerChargeAccountRequest $request)
@@ -33,7 +33,7 @@ class CustomerChargeAccountsApiController extends Controller
     {
         abort_if(Gate::denies('customer_charge_account_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new CustomerChargeAccountResource($customerChargeAccount);
+        return new CustomerChargeAccountResource($customerChargeAccount->load(['customer']));
     }
 
     public function update(UpdateCustomerChargeAccountRequest $request, CustomerChargeAccount $customerChargeAccount)

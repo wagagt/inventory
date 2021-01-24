@@ -39,6 +39,11 @@ class CrmCustomer extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function customerCustomerChargeAccounts()
+    {
+        return $this->hasMany(CustomerChargeAccount::class, 'customer_id', 'id');
+    }
+
     public function status()
     {
         return $this->belongsTo(CrmStatus::class, 'status_id');
