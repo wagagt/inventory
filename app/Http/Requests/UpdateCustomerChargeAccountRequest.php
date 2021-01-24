@@ -31,9 +31,9 @@ class UpdateCustomerChargeAccountRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'currency'     => [
-                'string',
-                'nullable',
+            'customer_id'  => [
+                'required',
+                'integer',
             ],
         ];
     }

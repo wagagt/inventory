@@ -106,6 +106,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#customer_customer_charge_accounts" role="tab" data-toggle="tab">
+                {{ trans('cruds.customerChargeAccount.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="customer_customer_charge_accounts">
+            @includeIf('admin.crmCustomers.relationships.customerCustomerChargeAccounts', ['customerChargeAccounts' => $crmCustomer->customerCustomerChargeAccounts])
+        </div>
+    </div>
+</div>
 
 @endsection

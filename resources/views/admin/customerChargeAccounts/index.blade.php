@@ -38,10 +38,16 @@
                             {{ trans('cruds.customerChargeAccount.fields.doc_no') }}
                         </th>
                         <th>
-                            {{ trans('cruds.customerChargeAccount.fields.currency') }}
+                            {{ trans('cruds.customerChargeAccount.fields.exchage_currency') }}
                         </th>
                         <th>
-                            {{ trans('cruds.customerChargeAccount.fields.exchage_currency') }}
+                            {{ trans('cruds.customerChargeAccount.fields.customer') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.crmCustomer.fields.last_name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.customerChargeAccount.fields.currency') }}
                         </th>
                         <th>
                             &nbsp;
@@ -70,10 +76,16 @@
                                 {{ $customerChargeAccount->doc_no ?? '' }}
                             </td>
                             <td>
-                                {{ $customerChargeAccount->currency ?? '' }}
+                                {{ $customerChargeAccount->exchage_currency ?? '' }}
                             </td>
                             <td>
-                                {{ $customerChargeAccount->exchage_currency ?? '' }}
+                                {{ $customerChargeAccount->customer->first_name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customerChargeAccount->customer->last_name ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\CustomerChargeAccount::CURRENCY_SELECT[$customerChargeAccount->currency] ?? '' }}
                             </td>
                             <td>
                                 @can('customer_charge_account_show')

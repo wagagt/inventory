@@ -57,18 +57,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.customerChargeAccount.fields.currency') }}
-                        </th>
-                        <td>
-                            {{ $customerChargeAccount->currency }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.customerChargeAccount.fields.exchage_currency') }}
                         </th>
                         <td>
                             {{ $customerChargeAccount->exchage_currency }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.customerChargeAccount.fields.customer') }}
+                        </th>
+                        <td>
+                            {{ $customerChargeAccount->customer->first_name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.customerChargeAccount.fields.currency') }}
+                        </th>
+                        <td>
+                            {{ App\Models\CustomerChargeAccount::CURRENCY_SELECT[$customerChargeAccount->currency] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

@@ -64,8 +64,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('products', 'ProductsController');
 
     // Products Bases
-    // Route::delete('products-bases/destroy', 'ProductsBaseController@massDestroy')->name('products-bases.massDestroy');
-    // Route::resource('products-bases', 'ProductsBaseController');
+    Route::delete('products-bases/destroy', 'ProductsBaseController@massDestroy')->name('products-bases.massDestroy');
+    Route::resource('products-bases', 'ProductsBaseController');
 
     // Product Specs
     Route::delete('product-specs/destroy', 'ProductSpecsController@massDestroy')->name('product-specs.massDestroy');
