@@ -104,13 +104,13 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#provider_products_bases" role="tab" data-toggle="tab">
+            <a class="nav-link" href="#provider_products" role="tab" data-toggle="tab">
                 {{ trans('cruds.productsBase.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="provider_products_bases">
+        <div class="tab-pane" role="tabpanel" id="provider_products">
             @includeIf('admin.providers.relationships.providerProductsBases', ['productsBases' => $provider->providerProductsBases])
         </div>
     </div>
