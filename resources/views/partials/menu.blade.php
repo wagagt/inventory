@@ -296,6 +296,18 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('transaction_purchases_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.transaction-purchases.index") }}" class="nav-link {{ request()->is("admin/transaction-purchases") || request()->is("admin/transaction-purchases/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-cart-plus">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.transactionPurchase.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
                             @can('transaction_access')
                                 <li class="nav-item">
                                     <a href="{{ route("admin.transactions.index") }}" class="nav-link {{ request()->is("admin/transactions") || request()->is("admin/transactions/*") ? "active" : "" }}">
