@@ -424,6 +424,7 @@ return [
         ],
     ],
     'transaction'           => [
+        'title'          => 'Transactions',
         'title_singular'          => 'Transactions',
         'buy' => ' Compra',
         'sell' => ' Venta',

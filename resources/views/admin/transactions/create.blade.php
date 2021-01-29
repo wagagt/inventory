@@ -87,7 +87,7 @@
     </div>
 </div>
 
-
+`@livewire('invoice-create')`
 
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
