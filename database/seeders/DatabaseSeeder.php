@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             ProductsTagSeeder::class,
             ProductSpecsSeeder::class,
             ItemsSeeder::class,
+            SurveyUbicationsSeeder::class,
+            SurveySeeder::class,
+            SurveyAnswerTypeSeeder::class,
         ]);
     }
 }
