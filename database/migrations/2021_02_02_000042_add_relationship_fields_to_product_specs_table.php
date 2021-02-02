@@ -10,7 +10,7 @@ class AddRelationshipFieldsToProductSpecsTable extends Migration
     {
         Schema::table('product_specs', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id', 'product_fk_2868728')->references('id')->on('products');
+            $table->foreign('product_id', 'product_fk_2868728')->references('id')->on('products_bases');
         });
     }
 }

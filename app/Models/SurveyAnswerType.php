@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 
-class Product extends Model
+class SurveyAnswerType extends Model
 {
     use SoftDeletes, HasFactory;
 
-    public $table = 'products';
+    public $table = 'survey_answer_types';
 
     protected $dates = [
         'created_at',
@@ -21,13 +21,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'description',
-        'price',
-        'code',
-        'internal_code',
-        'stock',
-        'min_stock',
-        'max_stock',
+        'value',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -38,8 +32,8 @@ class Product extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function productProductTags()
+    public function answerTypeSurveyDetails()
     {
-        return $this->hasMany(ProductTag::class, 'product_id', 'id');
+        return $this->hasMany(SurveyDetail::class, 'answer_type_id', 'id');
     }
 }

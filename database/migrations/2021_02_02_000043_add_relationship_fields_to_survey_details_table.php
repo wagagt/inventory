@@ -11,8 +11,8 @@ class AddRelationshipFieldsToSurveyDetailsTable extends Migration
         Schema::table('survey_details', function (Blueprint $table) {
             $table->unsignedBigInteger('survey_id')->nullable();
             $table->foreign('survey_id', 'survey_fk_2909087')->references('id')->on('surveys');
-            $table->unsignedBigInteger('ask_type_id')->nullable();
-            $table->foreign('ask_type_id', 'ask_type_fk_2909097')->references('id')->on('survey_ask_types');
+            $table->unsignedBigInteger('answer_type_id')->nullable();
+            $table->foreign('answer_type_id', 'answer_type_fk_3104878')->references('id')->on('survey_answer_types');
         });
     }
 }

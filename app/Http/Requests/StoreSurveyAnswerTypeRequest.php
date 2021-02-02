@@ -2,22 +2,26 @@
 
 namespace App\Http\Requests;
 
-use App\Models\SurveyDetail;
+use App\Models\SurveyAnswerType;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class StoreSurveyDetailRequest extends FormRequest
+class StoreSurveyAnswerTypeRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('survey_detail_create');
+        return Gate::allows('survey_answer_type_create');
     }
 
     public function rules()
     {
         return [
-            'ask' => [
+            'name'  => [
+                'string',
+                'nullable',
+            ],
+            'value' => [
                 'string',
                 'nullable',
             ],

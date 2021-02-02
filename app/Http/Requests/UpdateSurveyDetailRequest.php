@@ -17,11 +17,7 @@ class UpdateSurveyDetailRequest extends FormRequest
     public function rules()
     {
         return [
-            'ask'      => [
-                'string',
-                'nullable',
-            ],
-            'response' => [
+            'ask' => [
                 'string',
                 'nullable',
             ],
