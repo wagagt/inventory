@@ -1,37 +1,34 @@
 <div class="m-3">
-    @can('survey_detail_create')
+    @can('product_tag_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.survey-details.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.surveyDetail.title_singular') }}
+                <a class="btn btn-success" href="{{ route('admin.product-tags.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.productTag.title_singular') }}
                 </a>
             </div>
         </div>
     @endcan
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.surveyDetail.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.productTag.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-surveySurveyDetails">
+                <table class=" table table-bordered table-striped table-hover datatable datatable-productProductTags">
                     <thead>
                         <tr>
                             <th width="10">
 
                             </th>
                             <th>
-                                {{ trans('cruds.surveyDetail.fields.id') }}
+                                {{ trans('cruds.productTag.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.surveyDetail.fields.ask') }}
+                                {{ trans('cruds.productTag.fields.name') }}
                             </th>
                             <th>
-                                {{ trans('cruds.surveyDetail.fields.survey') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.surveyDetail.fields.answer_type') }}
+                                {{ trans('cruds.productTag.fields.product') }}
                             </th>
                             <th>
                                 &nbsp;
@@ -39,38 +36,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($surveyDetails as $key => $surveyDetail)
-                            <tr data-entry-id="{{ $surveyDetail->id }}">
+                        @foreach($productTags as $key => $productTag)
+                            <tr data-entry-id="{{ $productTag->id }}">
                                 <td>
 
                                 </td>
                                 <td>
-                                    {{ $surveyDetail->id ?? '' }}
+                                    {{ $productTag->id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $surveyDetail->ask ?? '' }}
+                                    {{ $productTag->name ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $surveyDetail->survey->name ?? '' }}
+                                    {{ $productTag->product->name ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $surveyDetail->answer_type->name ?? '' }}
-                                </td>
-                                <td>
-                                    @can('survey_detail_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.survey-details.show', $surveyDetail->id) }}">
+                                    @can('product_tag_show')
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.product-tags.show', $productTag->id) }}">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan
 
-                                    @can('survey_detail_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.survey-details.edit', $surveyDetail->id) }}">
+                                    @can('product_tag_edit')
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.product-tags.edit', $productTag->id) }}">
                                             {{ trans('global.edit') }}
                                         </a>
                                     @endcan
 
-                                    @can('survey_detail_delete')
-                                        <form action="{{ route('admin.survey-details.destroy', $surveyDetail->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    @can('product_tag_delete')
+                                        <form action="{{ route('admin.product-tags.destroy', $productTag->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -92,11 +86,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('survey_detail_delete')
+@can('product_tag_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.survey-details.massDestroy') }}",
+    url: "{{ route('admin.product-tags.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -127,7 +121,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-surveySurveyDetails:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-productProductTags:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

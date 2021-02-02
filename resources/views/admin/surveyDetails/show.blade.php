@@ -33,14 +33,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.surveyDetail.fields.response') }}
-                        </th>
-                        <td>
-                            {{ $surveyDetail->response }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.surveyDetail.fields.survey') }}
                         </th>
                         <td>
@@ -49,10 +41,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.surveyDetail.fields.ask_type') }}
+                            {{ trans('cruds.surveyDetail.fields.answer_type') }}
                         </th>
                         <td>
-                            {{ $surveyDetail->ask_type->name ?? '' }}
+                            {{ $surveyDetail->answer_type->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>
