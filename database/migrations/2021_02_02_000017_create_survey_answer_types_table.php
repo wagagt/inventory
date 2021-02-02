@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSurveyDetailsTable extends Migration
+class CreateSurveyAnswerTypesTable extends Migration
 {
     public function up()
     {
-        Schema::create('survey_details', function (Blueprint $table) {
+        Schema::create('survey_answer_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ask')->nullable();
-            $table->string('response')->nullable();
+            $table->string('name')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -109,10 +109,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('survey-details/destroy', 'SurveyDetailController@massDestroy')->name('survey-details.massDestroy');
     Route::resource('survey-details', 'SurveyDetailController');
 
-    // Survey Ask Types
-    Route::delete('survey-ask-types/destroy', 'SurveyAskTypesController@massDestroy')->name('survey-ask-types.massDestroy');
-    Route::resource('survey-ask-types', 'SurveyAskTypesController');
-
     // Survey Responders
     Route::delete('survey-responders/destroy', 'SurveyRespondersController@massDestroy')->name('survey-responders.massDestroy');
     Route::resource('survey-responders', 'SurveyRespondersController');
@@ -120,6 +116,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Survey Responses
     Route::delete('survey-responses/destroy', 'SurveyResponsesController@massDestroy')->name('survey-responses.massDestroy');
     Route::resource('survey-responses', 'SurveyResponsesController');
+
+    // Survey Answer Types
+    Route::delete('survey-answer-types/destroy', 'SurveyAnswerTypesController@massDestroy')->name('survey-answer-types.massDestroy');
+    Route::resource('survey-answer-types', 'SurveyAnswerTypesController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password

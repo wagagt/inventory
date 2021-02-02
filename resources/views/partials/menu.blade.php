@@ -324,7 +324,7 @@
                     </li>
                 @endcan
                 @can('admin_survey_access')
-                    <li class="nav-item has-treeview {{ request()->is("admin/survey-ubications*") ? "menu-open" : "" }} {{ request()->is("admin/surveys*") ? "menu-open" : "" }} {{ request()->is("admin/survey-details*") ? "menu-open" : "" }} {{ request()->is("admin/survey-ask-types*") ? "menu-open" : "" }} {{ request()->is("admin/survey-responders*") ? "menu-open" : "" }} {{ request()->is("admin/survey-responses*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/survey-ubications*") ? "menu-open" : "" }} {{ request()->is("admin/surveys*") ? "menu-open" : "" }} {{ request()->is("admin/survey-details*") ? "menu-open" : "" }} {{ request()->is("admin/survey-responders*") ? "menu-open" : "" }} {{ request()->is("admin/survey-responses*") ? "menu-open" : "" }} {{ request()->is("admin/survey-answer-types*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon far fa-file-archive">
 
@@ -371,18 +371,6 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('survey_ask_type_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.survey-ask-types.index") }}" class="nav-link {{ request()->is("admin/survey-ask-types") || request()->is("admin/survey-ask-types/*") ? "active" : "" }}">
-                                        <i class="fa-fw nav-icon fas fa-cogs">
-
-                                        </i>
-                                        <p>
-                                            {{ trans('cruds.surveyAskType.title') }}
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
                             @can('survey_responder_access')
                                 <li class="nav-item">
                                     <a href="{{ route("admin.survey-responders.index") }}" class="nav-link {{ request()->is("admin/survey-responders") || request()->is("admin/survey-responders/*") ? "active" : "" }}">
@@ -403,6 +391,18 @@
                                         </i>
                                         <p>
                                             {{ trans('cruds.surveyResponse.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('survey_answer_type_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.survey-answer-types.index") }}" class="nav-link {{ request()->is("admin/survey-answer-types") || request()->is("admin/survey-answer-types/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-cogs">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.surveyAnswerType.title') }}
                                         </p>
                                     </a>
                                 </li>
