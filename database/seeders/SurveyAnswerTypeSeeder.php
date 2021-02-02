@@ -9,7 +9,7 @@ class SurveyAnswerTypeSeeder extends Seeder
 {
     public function run()
     {
-        $surveyAskType = [
+        $surveyAnswerType = [
             [
                 'name'  => 'Respuesta de texto corto',
                 'value'  => 'text',
@@ -27,6 +27,6 @@ class SurveyAnswerTypeSeeder extends Seeder
                 'value'  => 'slider',
             ],
         ];
-
+    SurveyAnswerType::insert($surveyAnswerType);
     }
 }
