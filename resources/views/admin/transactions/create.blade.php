@@ -97,6 +97,44 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.transaction.fields.type_helper') }}</span>
             </div>
+</div>
+
+<div class="col-lg-6">
+    <div class="form-group">
+        <label class="required" for="provider">{{ trans('cruds.transaction.fields.provider') }}</label>
+        <select class="form-control select2 {{ $errors->has('provider') ? 'is-invalid' : '' }}" name="provider_id"
+            id="provider_id" required>
+            @foreach($providers as $id => $provider)
+            <option value="{{ $id }}" {{ old('provider_id') == $id ? 'selected' : '' }}>{{ $provider }}</option>
+            @endforeach
+        </select>
+        @if($errors->has('provider'))
+        <span class="text-danger">{{ $errors->first('provider') }}</span>
+        @endif
+        <span class="help-block">{{ trans('cruds.transaction.fields.provider_helper') }}</span>
+    </div>
+</div>
+
+<div class="col-lg-6">
+    <div class="form-group">
+        <label class="required" for="store">{{ trans('cruds.transaction.fields.store_destiny') }}</label>
+        <select class="form-control select2 {{ $errors->has('store') ? 'is-invalid' : '' }}" name="store_id"
+            id="store_id" required>
+            @foreach($stores as $id => $store)
+            <option value="{{ $id }}" {{ old('store_id') == $id ? 'selected' : '' }}>{{ $store }}</option>
+            @endforeach
+        </select>
+        @if($errors->has('store'))
+        <span class="text-danger">{{ $errors->first('store') }}</span>
+        @endif
+        <span class="help-block">{{ trans('cruds.transaction.fields.store_destiny_helper') }}</span>
+    </div>
+</div>
+
+`@livewire('invoice-create')`
+
+<livewire:invoice-create />
+
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}

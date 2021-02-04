@@ -3,6 +3,9 @@
 /public/storage
 /storage/*.key
 /vendor
+/mariadb
+/mariadb/*
+/mariadb/data
 .env
 .env.backup
 .phpunit.result.cache
