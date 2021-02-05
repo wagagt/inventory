@@ -95,11 +95,11 @@ class InvoiceCreate extends Component
                 $product['product_id'],
                 [
                     'quantity' => $product['quantity']
-                ]);
+                ]
+            );
         }
 
         $this->reset('invoiceProducts', 'customer_name', 'customer_email');
         $this->invoiceSaved = true;
     }
-
 }

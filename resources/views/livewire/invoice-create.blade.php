@@ -4,7 +4,7 @@
     @endif
     <form wire:submit.prevent="saveInvoice">
         @csrf
-        <div class="form-group {{ $errors->has('customer_name') ? 'has-error' : '' }}">
+        {{-- <div class="form-group {{ $errors->has('customer_name') ? 'has-error' : '' }}">
             <label>Customer name</label>
             <input wire:model="customer_name" type="text" name="customer_name" class="form-control"
                    value="{{ old('customer_name') }}" required>
@@ -23,7 +23,7 @@
                     {{ $errors->first('customer_email') }}
                 </em>
             @endif
-        </div>
+        </div> --}}
 
         <div class="card mt-4">
             <div class="card-header">
@@ -31,11 +31,21 @@
             </div>
 
             <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-sm btn-secondary"
+                                wire:click.prevent="addProduct">+ Add Product</button>
+                    </div>
+                </div>
+
                 <table class="table" id="products_table">
                     <thead>
                     <tr>
-                        <th>Product</th>
-                        <th width="150">Quantity</th>
+                        <th width="25">Id Item</th>
+                        <th width="100">Nombre Item</th>
+                        <th width="100">Precio Item</th>
+                        <th width="100">Cantidad</th>
                         <th width="150"></th>
                     </tr>
                     </thead>
@@ -43,14 +53,7 @@
                     @foreach ($invoiceProducts as $index => $invoiceProduct)
                         <tr>
                             <td>
-                                @if($invoiceProduct['is_saved'])
-                                    <input type="hidden" name="invoiceProducts[{{$index}}][product_id]"
-                                           wire:model="invoiceProducts.{{$index}}.product_id" />
-                                    @if($invoiceProduct['product_name'] && $invoiceProduct['product_price'])
-                                        {{ $invoiceProduct['product_name'] }}
-                                        (${{ number_format($invoiceProduct['product_price'], 2) }})
-                                    @endif
-                                @else
+                                @if(!$invoiceProduct['is_saved'])
                                     <select name="invoiceProducts[{{$index}}][product_id]"
                                             class="form-control{{ $errors->has('invoiceProducts.' . $index) ? ' is-invalid' : '' }}"
                                             wire:model="invoiceProducts.{{$index}}.product_id">
@@ -67,7 +70,33 @@
                                         </em>
                                     @endif
                                 @endif
+                                @if($invoiceProduct['is_saved'])
+                                    <input type="hidden" name="invoiceProducts[{{$index}}][product_id]"
+                                           wire:model="invoiceProducts.{{$index}}.product_id" />
+                                    {{ $invoiceProduct['product_id'] }}
+                                @endif
+
                             </td>
+
+                            <td>
+                                @if($invoiceProduct['is_saved'])
+                                    <input type="hidden" name="invoiceProducts[{{$index}}][product_id]"
+                                           wire:model="invoiceProducts.{{$index}}.product_id" />
+                                    @if($invoiceProduct['product_name'] && $invoiceProduct['product_price'])
+                                        {{ $invoiceProduct['product_name'] }}
+                                        (${{ number_format($invoiceProduct['product_price'], 2) }})
+                                    @endif
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($invoiceProduct['is_saved'])
+                                    <input type="hidden" name="invoiceProducts[{{$index}}][quantity]"
+                                           wire:model="invoiceProducts.{{$index}}.quantity" />
+                                    {{ $invoiceProduct['quantity'] }}
+                                @endif
+                            </td>
+
                             <td>
                                 @if($invoiceProduct['is_saved'])
                                     <input type="hidden" name="invoiceProducts[{{$index}}][quantity]"
@@ -78,6 +107,7 @@
                                            class="form-control" wire:model="invoiceProducts.{{$index}}.quantity" />
                                 @endif
                             </td>
+
                             <td>
                                 @if($invoiceProduct['is_saved'])
                                     <button class="btn btn-sm btn-primary"
@@ -97,13 +127,6 @@
                     @endforeach
                     </tbody>
                 </table>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <button class="btn btn-sm btn-secondary"
-                                wire:click.prevent="addProduct">+ Add Product</button>
-                    </div>
-                </div>
 
                 <div class="col-lg-5 ml-auto text-right">
                     <table class="table pull-right">
