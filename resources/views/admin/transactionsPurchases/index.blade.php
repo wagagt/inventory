@@ -1,27 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-@can('transaction_create')
+@can('transaction_purchases_create')
     <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.buy') }}
-            </a>
-        </div>
-        <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.sell') }}
-            </a>
-        </div>
-        <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.transfer') }}
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.transaction-purchases.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.transactionPurchase.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.transaction.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.transactionPurchase.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -33,34 +23,34 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.id') }}
+                            {{ trans('cruds.transactionPurchase.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.date') }}
+                            {{ trans('cruds.transactionPurchase.fields.date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.amount') }}
+                            {{ trans('cruds.transactionPurchase.fields.amount') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.name') }}
+                            {{ trans('cruds.transactionPurchase.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.store_origin') }}
+                            {{ trans('cruds.transactionPurchase.fields.store_origin') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.store_destiny') }}
+                            {{ trans('cruds.transactionPurchase.fields.store_destiny') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.customer') }}
+                            {{ trans('cruds.transactionPurchase.fields.customer') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.provider') }}
+                            {{ trans('cruds.transactionPurchase.fields.provider') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.status') }}
+                            {{ trans('cruds.transactionPurchase.fields.status') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.type') }}
+                            {{ trans('cruds.transactionPurchase.fields.type') }}
                         </th>
                         <th>
                             &nbsp;
@@ -113,7 +103,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($transactions as $key => $transaction)
+                    @foreach($transactionPurchases as $key => $transaction)
                         <tr data-entry-id="{{ $transaction->id }}">
                             <td>
 
@@ -149,20 +139,20 @@
                                 {{ $transaction->type->name ?? '' }}
                             </td>
                             <td>
-                                @can('transaction_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">
+                                @can('transaction_purchases_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.transaction-purchases.show', $transaction->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('transaction_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.edit', $transaction->id) }}">
+                                @can('transaction_purchases-edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transaction-purchases.edit', $transaction->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('transaction_delete')
-                                    <form action="{{ route('admin.transactions.destroy', $transaction->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('transaction_purchases_delete')
+                                    <form action="{{ route('admin.transaction-purchases.destroy', $transaction->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">

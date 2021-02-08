@@ -83,6 +83,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('transaction-types/destroy', 'TransactionTypesController@massDestroy')->name('transaction-types.massDestroy');
     Route::resource('transaction-types', 'TransactionTypesController');
 
+    // Transaction Purchases
+    Route::delete('transaction-purchases/destroy', 'TransactionPurchasesController@massDestroy')->name('transaction-purchases.massDestroy');
+    Route::resource('transaction-purchases', 'TransactionPurchasesController');
+
     // Transactions
     Route::delete('transactions/destroy', 'TransactionsController@massDestroy')->name('transactions.massDestroy');
     Route::post('transactions/media', 'TransactionsController@storeMedia')->name('transactions.storeMedia');
