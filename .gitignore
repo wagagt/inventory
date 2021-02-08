@@ -6,6 +6,8 @@
 /mariadb
 /mariadb/*
 /mariadb/data
+mariadb
+mariadb/
 .env
 .env.backup
 .phpunit.result.cache
