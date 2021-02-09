@@ -27,7 +27,7 @@
 
         <div class="card mt-4">
             <div class="card-header">
-                Products
+                Detalle
             </div>
 
             <div class="card-body">
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-sm btn-secondary"
-                                wire:click.prevent="addProduct">+ Add Product</button>
+                                wire:click.prevent="addProduct">+ Agregar Item</button>
                     </div>
                 </div>
 
@@ -46,7 +46,7 @@
                         <th width="100">Nombre Item</th>
                         <th width="100">Precio Item</th>
                         <th width="100">Cantidad</th>
-                        <th width="150"></th>
+                        <th width="150">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -80,20 +80,21 @@
 
                             <td>
                                 @if($invoiceProduct['is_saved'])
-                                    <input type="hidden" name="invoiceProducts[{{$index}}][product_id]"
-                                           wire:model="invoiceProducts.{{$index}}.product_id" />
-                                    @if($invoiceProduct['product_name'] && $invoiceProduct['product_price'])
+                                    <input type="hidden" name="invoiceProducts[{{$index}}][product_name]"
+                                           wire:model="invoiceProducts.{{$index}}.product_name" />
+                                    {{ $invoiceProduct['product_name'] }}
+                                    {{-- @if($invoiceProduct['product_name'] && $invoiceProduct['product_price'])
                                         {{ $invoiceProduct['product_name'] }}
                                         (${{ number_format($invoiceProduct['product_price'], 2) }})
-                                    @endif
+                                    @endif --}}
                                 @endif
                             </td>
 
                             <td>
                                 @if($invoiceProduct['is_saved'])
-                                    <input type="hidden" name="invoiceProducts[{{$index}}][quantity]"
-                                           wire:model="invoiceProducts.{{$index}}.quantity" />
-                                    {{ $invoiceProduct['quantity'] }}
+                                    <input type="hidden" name="invoiceProducts[{{$index}}][product_price]"
+                                           wire:model="invoiceProducts.{{$index}}.product_price" />
+                                    {{ $invoiceProduct['product_price'] }}
                                 @endif
                             </td>
 
@@ -112,36 +113,37 @@
                                 @if($invoiceProduct['is_saved'])
                                     <button class="btn btn-sm btn-primary"
                                             wire:click.prevent="editProduct({{$index}})">
-                                        Edit
+                                        Editar
                                     </button>
                                 @elseif($invoiceProduct['product_id'])
                                     <button class="btn btn-sm btn-success mr-1"
                                             wire:click.prevent="saveProduct({{$index}})">
-                                        Save
+                                        Grabar
                                     </button>
                                 @endif
+                                &nbsp; &nbsp; &nbsp;
                                 <button class="btn btn-sm btn-danger"
-                                        wire:click.prevent="removeProduct({{$index}})">Delete</button>
+                                        wire:click.prevent="removeProduct({{$index}})">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
 
-                <div class="col-lg-5 ml-auto text-right">
+                <div class="col-lg-12 ml-auto text-right">
                     <table class="table pull-right">
-                        <tr>
+                        {{-- <tr>
                             <th>Subtotal</th>
                             <td>${{ number_format($subtotal, 2) }}</td>
-                        </tr>
-                        <tr>
+                        </tr> --}}
+                        {{-- <tr>
                             <th>Taxes</th>
                             <td width="125">
                                 <input type="number" name="taxes" class="form-control w-75 d-inline"
                                        min="0" max="100" wire:model="taxes">
                                 %
                             </td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <th>Total</th>
                             <td>${{ number_format($total, 2) }}</td>

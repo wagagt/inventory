@@ -32,7 +32,8 @@ class InvoiceCreate extends Component
 
         return view('livewire.invoice-create', [
             'subtotal' => $total,
-            'total' => $total * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100)
+            'total' => $total,
+            // 'total' => $total * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100)
         ]);
     }
 

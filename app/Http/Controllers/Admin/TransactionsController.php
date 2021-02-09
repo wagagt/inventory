@@ -51,6 +51,7 @@ class TransactionsController extends Controller
 
     public function store(StoreTransactionRequest $request)
     {
+        dd('entrando');
         $transaction = Transaction::create($request->all());
 
         if ($media = $request->input('ck-media', false)) {
