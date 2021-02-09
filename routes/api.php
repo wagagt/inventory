@@ -72,12 +72,12 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Survey Details
     Route::apiResource('survey-details', 'SurveyDetailApiController');
 
-    // Survey Ask Types
-    Route::apiResource('survey-ask-types', 'SurveyAskTypesApiController');
-
     // Survey Responders
     Route::apiResource('survey-responders', 'SurveyRespondersApiController');
 
     // Survey Responses
     Route::apiResource('survey-responses', 'SurveyResponsesApiController');
+
+    // Survey Answer Types
+    Route::apiResource('survey-answer-types', 'SurveyAnswerTypesApiController');
 });

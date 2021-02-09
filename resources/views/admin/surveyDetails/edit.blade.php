@@ -19,14 +19,6 @@
                 <span class="help-block">{{ trans('cruds.surveyDetail.fields.ask_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="response">{{ trans('cruds.surveyDetail.fields.response') }}</label>
-                <input class="form-control {{ $errors->has('response') ? 'is-invalid' : '' }}" type="text" name="response" id="response" value="{{ old('response', $surveyDetail->response) }}">
-                @if($errors->has('response'))
-                    <span class="text-danger">{{ $errors->first('response') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.surveyDetail.fields.response_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="survey_id">{{ trans('cruds.surveyDetail.fields.survey') }}</label>
                 <select class="form-control select2 {{ $errors->has('survey') ? 'is-invalid' : '' }}" name="survey_id" id="survey_id">
                     @foreach($surveys as $id => $survey)
@@ -39,16 +31,16 @@
                 <span class="help-block">{{ trans('cruds.surveyDetail.fields.survey_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="ask_type_id">{{ trans('cruds.surveyDetail.fields.ask_type') }}</label>
-                <select class="form-control select2 {{ $errors->has('ask_type') ? 'is-invalid' : '' }}" name="ask_type_id" id="ask_type_id">
-                    @foreach($ask_types as $id => $ask_type)
-                        <option value="{{ $id }}" {{ (old('ask_type_id') ? old('ask_type_id') : $surveyDetail->ask_type->id ?? '') == $id ? 'selected' : '' }}>{{ $ask_type }}</option>
+                <label for="answer_type_id">{{ trans('cruds.surveyDetail.fields.answer_type') }}</label>
+                <select class="form-control select2 {{ $errors->has('answer_type') ? 'is-invalid' : '' }}" name="answer_type_id" id="answer_type_id">
+                    @foreach($answer_types as $id => $answer_type)
+                        <option value="{{ $id }}" {{ (old('answer_type_id') ? old('answer_type_id') : $surveyDetail->answer_type->id ?? '') == $id ? 'selected' : '' }}>{{ $answer_type }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('ask_type'))
-                    <span class="text-danger">{{ $errors->first('ask_type') }}</span>
+                @if($errors->has('answer_type'))
+                    <span class="text-danger">{{ $errors->first('answer_type') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.surveyDetail.fields.ask_type_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.surveyDetail.fields.answer_type_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

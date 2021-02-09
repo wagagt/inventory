@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Transaction;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
+use App\Models\Provider;
+use App\Models\Store;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -40,7 +42,11 @@ class TransactionsController extends Controller
 
         $types = TransactionType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.transactions.create', compact('statuses', 'types'));
+        $providers = Provider::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.transactions.create', compact('statuses', 'types', 'providers', 'stores'));
     }
 
     public function store(StoreTransactionRequest $request)

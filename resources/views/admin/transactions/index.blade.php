@@ -2,9 +2,19 @@
 @section('content')
 @can('transaction_create')
     <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-4">
             <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.title_singular') }}
+                {{ trans('global.add') }} {{ trans('cruds.transaction.buy') }}
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.transaction.sell') }}
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.transaction.transfer') }}
             </a>
         </div>
     </div>
@@ -217,7 +227,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false

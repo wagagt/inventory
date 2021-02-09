@@ -21,9 +21,8 @@ class SurveyDetail extends Model
 
     protected $fillable = [
         'ask',
-        'response',
         'survey_id',
-        'ask_type_id',
+        'answer_type_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -39,8 +38,8 @@ class SurveyDetail extends Model
         return $this->belongsTo(Survey::class, 'survey_id');
     }
 
-    public function ask_type()
+    public function answer_type()
     {
-        return $this->belongsTo(SurveyAskType::class, 'ask_type_id');
+        return $this->belongsTo(SurveyAnswerType::class, 'answer_type_id');
     }
 }
