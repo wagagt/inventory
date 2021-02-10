@@ -496,63 +496,63 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 122,
-                'title' => 'survey_ask_type_create',
-            ],
-            [
-                'id'    => 123,
-                'title' => 'survey_ask_type_edit',
-            ],
-            [
-                'id'    => 124,
-                'title' => 'survey_ask_type_show',
-            ],
-            [
-                'id'    => 125,
-                'title' => 'survey_ask_type_delete',
-            ],
-            [
-                'id'    => 126,
-                'title' => 'survey_ask_type_access',
-            ],
-            [
-                'id'    => 127,
                 'title' => 'survey_responder_create',
             ],
             [
-                'id'    => 128,
+                'id'    => 123,
                 'title' => 'survey_responder_edit',
             ],
             [
-                'id'    => 129,
+                'id'    => 124,
                 'title' => 'survey_responder_show',
             ],
             [
-                'id'    => 130,
+                'id'    => 125,
                 'title' => 'survey_responder_delete',
             ],
             [
-                'id'    => 131,
+                'id'    => 126,
                 'title' => 'survey_responder_access',
             ],
             [
-                'id'    => 132,
+                'id'    => 127,
                 'title' => 'survey_response_create',
             ],
             [
-                'id'    => 133,
+                'id'    => 128,
                 'title' => 'survey_response_edit',
             ],
             [
-                'id'    => 134,
+                'id'    => 129,
                 'title' => 'survey_response_show',
             ],
             [
-                'id'    => 135,
+                'id'    => 130,
                 'title' => 'survey_response_delete',
             ],
             [
-                'id'    => 136,
+                'id'    => 131,
                 'title' => 'survey_response_access',
+            ],
+            [
+                'id'    => 132,
+                'title' => 'survey_answer_type_create',
+            ],
+            [
+                'id'    => 133,
+                'title' => 'survey_answer_type_edit',
+            ],
+            [
+                'id'    => 134,
+                'title' => 'survey_answer_type_show',
+            ],
+            [
+                'id'    => 135,
+                'title' => 'survey_answer_type_delete',
+            ],
+            [
+                'id'    => 136,
+                'title' => 'survey_answer_type_access',
             ],
             [
                 'id'    => 137,

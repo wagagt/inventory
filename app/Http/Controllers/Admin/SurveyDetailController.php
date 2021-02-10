@@ -7,7 +7,7 @@ use App\Http\Requests\MassDestroySurveyDetailRequest;
 use App\Http\Requests\StoreSurveyDetailRequest;
 use App\Http\Requests\UpdateSurveyDetailRequest;
 use App\Models\Survey;
-use App\Models\SurveyAskType;
+use App\Models\SurveyAnswerType;
 use App\Models\SurveyDetail;
 use Gate;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class SurveyDetailController extends Controller
     {
         abort_if(Gate::denies('survey_detail_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $surveyDetails = SurveyDetail::with(['survey', 'ask_type'])->get();
+        $surveyDetails = SurveyDetail::with(['survey', 'answer_type'])->get();
 
         return view('admin.surveyDetails.index', compact('surveyDetails'));
     }
@@ -30,9 +30,9 @@ class SurveyDetailController extends Controller
 
         $surveys = Survey::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $ask_types = SurveyAskType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $answer_types = SurveyAnswerType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.surveyDetails.create', compact('surveys', 'ask_types'));
+        return view('admin.surveyDetails.create', compact('surveys', 'answer_types'));
     }
 
     public function store(StoreSurveyDetailRequest $request)
@@ -48,11 +48,11 @@ class SurveyDetailController extends Controller
 
         $surveys = Survey::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $ask_types = SurveyAskType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $answer_types = SurveyAnswerType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $surveyDetail->load('survey', 'ask_type');
+        $surveyDetail->load('survey', 'answer_type');
 
-        return view('admin.surveyDetails.edit', compact('surveys', 'ask_types', 'surveyDetail'));
+        return view('admin.surveyDetails.edit', compact('surveys', 'answer_types', 'surveyDetail'));
     }
 
     public function update(UpdateSurveyDetailRequest $request, SurveyDetail $surveyDetail)
@@ -66,7 +66,7 @@ class SurveyDetailController extends Controller
     {
         abort_if(Gate::denies('survey_detail_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $surveyDetail->load('survey', 'ask_type');
+        $surveyDetail->load('survey', 'answer_type');
 
         return view('admin.surveyDetails.show', compact('surveyDetail'));
     }
