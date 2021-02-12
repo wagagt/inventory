@@ -2,17 +2,26 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Invoice;
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\TransactionStatus;
+use App\Models\TransactionType;
+use App\Models\Provider;
+use App\Models\Store;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 
 class InvoiceCreate extends Component
 {
     public $invoiceProducts = [];
     public $allProducts = [];
     public $taxes = 20;
-    public $customer_name;
-    public $customer_email;
+    public $date;
+    public $amount;
+    public $name;
+    public $type_id;
+    public $provider_id;
+    public $store_id;
     public $invoiceSaved = false;
 
     public function mount()
@@ -23,6 +32,13 @@ class InvoiceCreate extends Component
     public function render()
     {
         $total = 0;
+        $statuses = TransactionStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $types = TransactionType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $providers = Provider::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         foreach ($this->invoiceProducts as $invoiceProduct) {
             if ($invoiceProduct['is_saved'] && $invoiceProduct['product_price'] && $invoiceProduct['quantity']) {
@@ -33,6 +49,10 @@ class InvoiceCreate extends Component
         return view('livewire.invoice-create', [
             'subtotal' => $total,
             'total' => $total,
+            'statuses' => $statuses,
+            'types' => $types,
+            'providers' => $providers,
+            'stores' => $stores
             // 'total' => $total * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100)
         ]);
     }
@@ -86,13 +106,18 @@ class InvoiceCreate extends Component
 
     public function saveInvoice()
     {
-        $invoice = Invoice::create([
-            'customer_name' => $this->customer_name,
-            'customer_email' => $this->customer_email
+        $transaction = Transaction::create([
+            'date' => $this->date,
+            'amount' => $this->amount,
+            'name' => $this->name,
+            'type_id' => $this->type_id,
+            'provider_id' => $this->provider_id,
+            'store_id' => $this->store_id,
         ]);
 
+
         foreach ($this->invoiceProducts as $product) {
-            $invoice->products()->attach(
+            $transaction->transactionTransactionDetails()->attach(
                 $product['product_id'],
                 [
                     'quantity' => $product['quantity']
@@ -100,7 +125,7 @@ class InvoiceCreate extends Component
             );
         }
 
-        $this->reset('invoiceProducts', 'customer_name', 'customer_email');
+        $this->reset('invoiceProducts', 'date', 'amount', 'name', 'type_id', 'provider_id', 'store_id');
         $this->invoiceSaved = true;
     }
 }
