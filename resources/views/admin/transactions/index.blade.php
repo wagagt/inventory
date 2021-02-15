@@ -3,17 +3,17 @@
 @can('transaction_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 1])) }}">
                 {{ trans('global.add') }} {{ trans('cruds.transaction.buy') }}
             </a>
         </div>
         <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 2])) }}">
                 {{ trans('global.add') }} {{ trans('cruds.transaction.sell') }}
             </a>
         </div>
         <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 3])) }}">
                 {{ trans('global.add') }} {{ trans('cruds.transaction.transfer') }}
             </a>
         </div>

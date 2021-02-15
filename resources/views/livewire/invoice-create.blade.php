@@ -1,37 +1,36 @@
 <div>
     @if ($invoiceSaved)
-        <div class="alert alert-info">Invoice saved successfully.</div>
+        <div class="alert alert-info">Transacción Realizada con éxito.</div>
     @endif
     <form wire:submit.prevent="saveInvoice">
         @csrf
-        <td>${{ number_format($total, 2) }}</td>
-        {{-- <div class="form-group {{ $errors->has('customer_name') ? 'has-error' : '' }}">
-            <label>Customer name</label>
-            <input wire:model="customer_name" type="text" name="customer_name" class="form-control"
-                   value="{{ old('customer_name') }}" required>
-            @if($errors->has('customer_name'))
+        {{-- <div class="form-group {{ $errors->has('date') ? 'has-error' : '' }}">
+            <label>Fecha</label>
+            <input wire:model="date" type="date" name="date" class="form-control"
+                   value="{{ old('date') }}" required>
+            @if($errors->has('date'))
                 <em class="invalid-feedback">
-                    {{ $errors->first('customer_name') }}
+                    {{ $errors->first('date') }}
                 </em>
             @endif
         </div>
-        <div class="form-group {{ $errors->has('customer_email') ? 'has-error' : '' }}">
-            <label>Customer email</label>
-            <input wire:model="customer_email" type="email" name="customer_email" class="form-control"
-                   value="{{ old('customer_email') }}">
-            @if($errors->has('customer_email'))
+        <div class="form-group {{ $errors->has('amount') ? 'has-error' : '' }}">
+            <label>Monto</label>
+            <input wire:model="amount" type="email" name="amount" class="form-control"
+                   value="${{ number_format($total, 2) }}" readonly>
+            @if($errors->has('amount'))
                 <em class="invalid-feedback">
-                    {{ $errors->first('customer_email') }}
+                    {{ $errors->first('amount') }}
                 </em>
             @endif
         </div> --}}
-
+        ${{$type_id}}
         <div class="row">
             <div class="col-lg-6">
 
                         <div class="form-group">
                             <label for="date">{{ trans('cruds.transaction.fields.date') }}</label>
-                            <input class="form-control date {{ $errors->has('date') ? 'is-invalid' : '' }}" type="text" name="date" id="date" value="{{ old('date') }}">
+                            <input wire:model="date" class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}"  type="date" name="date" id="date" value="{{ old('date') }}">
                             @if($errors->has('date'))
                                 <span class="text-danger">{{ $errors->first('date') }}</span>
                             @endif
@@ -39,16 +38,19 @@
                         </div>
             </div>
             <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="amount">{{ trans('cruds.transaction.fields.amount') }}</label>
-                            <input class="form-control  type="text" name="amount" id="amount"
-                                value="${{ number_format($total, 2) }}" disabled>
-                        </div>
+                    <div class="form-group">
+                        <label for="amount">{{ trans('cruds.transaction.fields.amount') }}</label>
+                        <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="text" name="amount" id="amount" value="${{ number_format($total, 2) }}" readonly>
+                        @if($errors->has('amount'))
+                            <span class="text-danger">{{ $errors->first('amount') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.transaction.fields.amount_helper') }}</span>
+                    </div>
             </div>
             <div class="col-lg-6">
                         <div class="form-group">
                             <label for="name">{{ trans('cruds.transaction.fields.name') }}</label>
-                            <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '350') }}" step="0.01">
+                            <input wire:model="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name') }}">
                             @if($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
@@ -57,43 +59,94 @@
                     </div>
 
             <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="type_id">{{ trans('cruds.transaction.fields.type') }}</label>
-                            <input class="form-control {{ $errors->has('type_id') ? 'is-invalid' : '' }}" type="text" name="type_id" id="type_id" value="Compra" disabled>
-                            @if($errors->has('type_id'))
-                                <span class="text-danger">{{ $errors->first('type_id') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.transaction.fields.type_helper') }}</span>
-                        </div>
-            </div>
-
-            <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="required" for="provider">{{ trans('cruds.transaction.fields.provider') }}</label>
-                    <select class="form-control select2 {{ $errors->has('provider') ? 'is-invalid' : '' }}" name="provider_id"
-                        id="provider_id" required>
-                        @foreach($providers as $id => $provider)
-                        <option value="{{ $id }}" {{ old('provider_id') == $id ? 'selected' : '' }}>{{ $provider }}</option>
-                        @endforeach
+                    <label class="required" for="type_id">{{ trans('cruds.transaction.fields.type') }}</label>
+                    <select class="form-control {{ $errors->has('type_id') ? 'is-invalid' : '' }}" name="type_id"
+                        id="type_id" required readonly>
+                        {{-- @foreach($types as $id => $type) --}}
+                        @if ($type_id == 1)
+                            <option value="1" {{ old('type_id') == 1 ? 'selected' : '' }}> Compras </option>
+                        @endif
+                        @if ($type_id == 2)
+                            <option value="2" {{ old('type_id') == 2 ? 'selected' : '' }}> Ventas </option>
+                        @endif
+                        @if ($type_id == 3)
+                            <option value="3" {{ old('type_id') == 3 ? 'selected' : '' }}> Transferencias </option>
+                        @endif
+                        {{-- @endforeach --}}
                     </select>
-                    @if($errors->has('provider'))
-                    <span class="text-danger">{{ $errors->first('provider') }}</span>
+                    @if($errors->has('type_id'))
+                    <span class="text-danger">{{ $errors->first('type_id') }}</span>
                     @endif
-                    <span class="help-block">{{ trans('cruds.transaction.fields.provider_helper') }}</span>
+                    <span class="help-block">{{ trans('cruds.transaction.fields.type_helper') }}</span>
                 </div>
             </div>
 
+            @if ($type_id == 1)
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="required" for="provider_id">{{ trans('cruds.transaction.fields.provider') }}</label>
+                        <select wire:model="provider_id" class="form-control select2 {{ $errors->has('provider_id') ? 'is-invalid' : '' }}" name="provider_id"
+                            id="provider_id" required>
+                            @foreach($providers as $id => $provider)
+                            <option value="{{ $id }}" {{ old('provider_id') == $id ? 'selected' : '' }}>{{ $provider }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('provider_id'))
+                        <span class="text-danger">{{ $errors->first('provider_id') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.transaction.fields.provider_helper') }}</span>
+                    </div>
+                </div>
+            @endif
+
+            @if ($type_id == 2)
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="required" for="customer_id">{{ trans('cruds.transaction.fields.customer') }}</label>
+                        <select wire:model="customer_id" class="form-control select2 {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" name="customer_id"
+                            id="customer_id" required>
+                            @foreach($customers as $id => $customer)
+                            <option value="{{ $id }}" {{ old('customer_id') == $id ? 'selected' : '' }}>{{ $customer }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('customer_id'))
+                        <span class="text-danger">{{ $errors->first('customer_id') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.transaction.fields.customer_helper') }}</span>
+                    </div>
+                </div>
+            @endif
+
+            @if ($type_id == 3)
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="required" for="store_id">{{ trans('cruds.transaction.fields.store_origin') }}</label>
+                        <select wire:model="store_origin_id" class="form-control select2 {{ $errors->has('store_id') ? 'is-invalid' : '' }}" name="store_id"
+                            id="store_id" required>
+                            @foreach($stores as $id => $store)
+                            <option value="{{ $id }}" {{ old('store_id') == $id ? 'selected' : '' }}>{{ $store }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('store_id'))
+                        <span class="text-danger">{{ $errors->first('store_id') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.transaction.fields.store_origin_helper') }}</span>
+                    </div>
+                </div>
+            @endif
+
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label class="required" for="store">{{ trans('cruds.transaction.fields.store_destiny') }}</label>
-                    <select class="form-control select2 {{ $errors->has('store') ? 'is-invalid' : '' }}" name="store_id"
+                    <label class="required" for="store_id">{{ trans('cruds.transaction.fields.store_destiny') }}</label>
+                    <select wire:model="store_destiny_id" class="form-control select2 {{ $errors->has('store_id') ? 'is-invalid' : '' }}" name="store_id"
                         id="store_id" required>
                         @foreach($stores as $id => $store)
                         <option value="{{ $id }}" {{ old('store_id') == $id ? 'selected' : '' }}>{{ $store }}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('store'))
-                    <span class="text-danger">{{ $errors->first('store') }}</span>
+                    @if($errors->has('store_id'))
+                    <span class="text-danger">{{ $errors->first('store_id') }}</span>
                     @endif
                     <span class="help-block">{{ trans('cruds.transaction.fields.store_destiny_helper') }}</span>
                 </div>
@@ -222,15 +275,35 @@
                         </tr> --}}
                         <tr>
                             <th>Total</th>
-                            <td>${{ number_format($total, 2) }}</td>
+                            <td id="valorTotal">${{ number_format($total, 2) }}</td>
                         </tr>
                     </table>
+                    {{-- <button class="btn btn-sm btn-success"
+                                        id="finalizarDetalle">
+                                    Finalizar
+                                </button> --}}
                 </div>
             </div>
         </div>
         <br />
         <div>
-            <input class="btn btn-primary" type="submit" value="Guardar">
+            <input class="btn btn-primary" type="submit" value="Guardar Transacción">
         </div>
     </form>
 </div>
+
+{{-- @section('scripts')
+<script>
+    $(document).ready(function () {
+        $('#finalizarDetalle').on('click', function(e) {
+            e.preventDefault();
+            var valor = $("#valorTotal").html();
+            // alert(valor);
+            $("#amount").val(valor);
+            $("#totalGeneral").val(valor);
+            $("#grabar").show();
+            // alert('click' + ' ' + $("#amount").val());
+        })
+    });
+</script>
+@endsection --}}

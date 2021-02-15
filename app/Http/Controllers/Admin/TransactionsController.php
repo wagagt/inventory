@@ -34,8 +34,11 @@ class TransactionsController extends Controller
         return view('admin.transactions.index', compact('transactions', 'transaction_statuses', 'transaction_types'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $transaction = $request->transaction;
+        //return $transaction;
+
         abort_if(Gate::denies('transaction_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $statuses = TransactionStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -46,7 +49,7 @@ class TransactionsController extends Controller
 
         $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.transactions.create', compact('statuses', 'types', 'providers', 'stores'));
+        return view('admin.transactions.create', compact('statuses', 'types', 'providers', 'stores', 'transaction'));
     }
 
     public function store(StoreTransactionRequest $request)

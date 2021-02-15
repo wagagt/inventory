@@ -12,7 +12,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <hr>
-                @livewire('invoice-create')
+                @php
+                    $type = $transaction;
+                @endphp
+                <livewire:invoice-create :type="$type" />
             </div>
         </div>
 

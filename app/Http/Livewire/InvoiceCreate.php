@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\CrmCustomer;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\TransactionStatus;
@@ -19,19 +20,25 @@ class InvoiceCreate extends Component
     public $date;
     public $amount;
     public $name;
-    public $type_id;
+    public $store_origin_id;
+    public $store_destiny_id;
+    public $customer_id;
     public $provider_id;
-    public $store_id;
+    public $type_id;
+    public $status_id;
     public $invoiceSaved = false;
 
-    public function mount()
+
+    public function mount($type)
     {
         $this->allProducts = Product::all();
+        $this->type_id = $type;
     }
 
     public function render()
     {
         $total = 0;
+        $date = $this->date;
         $statuses = TransactionStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $types = TransactionType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -40,19 +47,27 @@ class InvoiceCreate extends Component
 
         $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $customers = CrmCustomer::all()->pluck('last_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         foreach ($this->invoiceProducts as $invoiceProduct) {
             if ($invoiceProduct['is_saved'] && $invoiceProduct['product_price'] && $invoiceProduct['quantity']) {
                 $total += $invoiceProduct['product_price'] * $invoiceProduct['quantity'];
             }
         }
 
+        $this->amount = $total;
+
         return view('livewire.invoice-create', [
             'subtotal' => $total,
             'total' => $total,
+            'date' => $date,
+            'amount' => $this->amount,
+            'name' => $this->name,
             'statuses' => $statuses,
             'types' => $types,
             'providers' => $providers,
-            'stores' => $stores
+            'stores' => $stores,
+            'customers' => $customers
             // 'total' => $total * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100)
         ]);
     }
@@ -108,24 +123,26 @@ class InvoiceCreate extends Component
     {
         $transaction = Transaction::create([
             'date' => $this->date,
+            //'description' => $this->description,
             'amount' => $this->amount,
             'name' => $this->name,
+            'store_origin' => $this->store_origin_id,
+            'store_destiny' => $this->store_destiny_id,
+            'customer' => $this->customer_id,
+            'provider' => $this->provider_id,
+            'status_id' => $this->status_id,
             'type_id' => $this->type_id,
-            'provider_id' => $this->provider_id,
-            'store_id' => $this->store_id,
         ]);
 
-
         foreach ($this->invoiceProducts as $product) {
-            $transaction->transactionTransactionDetails()->attach(
-                $product['product_id'],
-                [
-                    'quantity' => $product['quantity']
-                ]
-            );
+            $details = TransactionDetail::Create([
+                'transaction_id' => $transaction['id'],
+                'quantity' => $product['quantity']
+
+            ]);
         }
 
-        $this->reset('invoiceProducts', 'date', 'amount', 'name', 'type_id', 'provider_id', 'store_id');
+        $this->reset('invoiceProducts', 'date', 'amount', 'name', 'type_id', 'provider_id', 'store_destiny_id');
         $this->invoiceSaved = true;
     }
 }
