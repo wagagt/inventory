@@ -42,7 +42,7 @@
                             {{ trans('cruds.transaction.fields.amount') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaction.fields.name') }}
+                            {{ trans('cruds.transaction.fields.description') }}
                         </th>
                         <th>
                             {{ trans('cruds.transaction.fields.store_origin') }}
@@ -128,7 +128,7 @@
                                 {{ $transaction->amount ?? '' }}
                             </td>
                             <td>
-                                {{ $transaction->name ?? '' }}
+                                {{ $transaction->description ?? '' }}
                             </td>
                             <td>
                                 {{ $transaction->store_origin ?? '' }}

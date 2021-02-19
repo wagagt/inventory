@@ -407,6 +407,9 @@ return [
         'buy' => ' Compra',
         'sell' => ' Venta',
         'transfer' => ' Traslado',
+        'buys' => ' Compras',
+        'sells' => ' Ventas ',
+        'transfers' => "Traslados",
         'fields'         => [
             'id'                   => 'ID',
             'id_helper'            => ' ',
@@ -416,7 +419,6 @@ return [
             'description_helper'   => ' ',
             'amount'               => 'Monto',
             'amount_helper'        => ' ',
-            'name'                 => 'Nombre',
             'name_helper'          => ' ',
             'store_origin'         => 'Bodega Origen',
             'store_origin_helper'  => ' ',
