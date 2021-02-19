@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             SurveyDetailSeeder::class,
             SurveyResponderSeeder::class,
             SurveyResponseSeeder::class,
+            TransactionTypesSeeder::class,
         ]);
     }
 }
