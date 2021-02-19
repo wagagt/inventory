@@ -13,7 +13,6 @@ class CreateTransactionsTable extends Migration
             $table->date('date')->nullable();
             $table->longText('description')->nullable();
             $table->decimal('amount', 15, 2)->nullable();
-            $table->string('name');
             $table->integer('store_origin')->nullable();
             $table->integer('store_destiny')->nullable();
             $table->integer('customer')->nullable();

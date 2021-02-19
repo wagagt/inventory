@@ -320,18 +320,41 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('transaction_detail_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.transaction-details.index") }}" class="nav-link {{ request()->is("admin/transaction-details") || request()->is("admin/transaction-details/*") ? "active" : "" }}">
-                                        <i class="fa-fw nav-icon fas fa-info">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.transactions.create', (['transaction' => 1])) }}"
+                                    class="nav-link {{ (request()->is("admin/transactions/create?transaction=1")) ? "active" : "" }}">
+                                    <i class="fa-fw nav-icon fas fa-cart-plus">
 
-                                        </i>
-                                        <p>
-                                            {{ trans('cruds.transactionDetail.title') }}
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
+                                    </i>
+                                    <p>
+                                        {{ trans('cruds.transaction.buys') }}
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.transactions.create', (['transaction' => 2])) }}"
+                                    class="nav-link {{ (request()->is("/admin/transactions/create?transaction=2")) ? "active" : "" }}">
+                                    <i class="fa-fw nav-icon fas fa-cart-plus">
+
+                                    </i>
+                                    <p>
+                                        {{ trans('cruds.transaction.sells') }}
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.transactions.create', (['transaction' => 3])) }}"
+                                    class="nav-link {{ (request()->is("admin/transactions/create?transaction=3")) ? "active" : "" }}">
+                                    <i class="fa-fw nav-icon fas fa-cart-plus">
+
+                                    </i>
+                                    <p>
+                                        {{ trans('cruds.transaction.transfers') }}
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endcan

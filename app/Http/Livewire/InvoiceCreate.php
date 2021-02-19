@@ -19,7 +19,7 @@ class InvoiceCreate extends Component
     public $taxes = 20;
     public $date;
     public $amount;
-    public $name;
+    public $description;
     public $store_origin_id;
     public $store_destiny_id;
     public $customer_id;
@@ -62,7 +62,7 @@ class InvoiceCreate extends Component
             'total' => $total,
             'date' => $date,
             'amount' => $this->amount,
-            'name' => $this->name,
+            'description' => $this->description,
             'statuses' => $statuses,
             'types' => $types,
             'providers' => $providers,
@@ -123,9 +123,8 @@ class InvoiceCreate extends Component
     {
         $transaction = Transaction::create([
             'date' => $this->date,
-            //'description' => $this->description,
+            'description' => $this->description,
             'amount' => $this->amount,
-            'name' => $this->name,
             'store_origin' => $this->store_origin_id,
             'store_destiny' => $this->store_destiny_id,
             'customer' => $this->customer_id,
@@ -142,7 +141,7 @@ class InvoiceCreate extends Component
             ]);
         }
 
-        $this->reset('invoiceProducts', 'date', 'amount', 'name', 'type_id', 'provider_id', 'store_destiny_id');
+        $this->reset('invoiceProducts', 'date', 'amount', 'description', 'type_id', 'provider_id', 'store_destiny_id');
         $this->invoiceSaved = true;
     }
 }

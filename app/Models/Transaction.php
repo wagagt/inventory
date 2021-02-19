@@ -28,7 +28,6 @@ class Transaction extends Model implements HasMedia
         'date',
         'description',
         'amount',
-        'name',
         'store_origin',
         'store_destiny',
         'customer',

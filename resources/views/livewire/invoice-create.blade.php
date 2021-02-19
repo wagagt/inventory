@@ -24,19 +24,19 @@
                 </em>
             @endif
         </div> --}}
-        ${{$type_id}}
         <div class="row">
             <div class="col-lg-6">
-
-                        <div class="form-group">
-                            <label for="date">{{ trans('cruds.transaction.fields.date') }}</label>
-                            <input wire:model="date" class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}"  type="date" name="date" id="date" value="{{ old('date') }}">
-                            @if($errors->has('date'))
-                                <span class="text-danger">{{ $errors->first('date') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.transaction.fields.date_helper') }}</span>
+                            <div class="form-group">
+                                <label for="description">{{ trans('cruds.transaction.fields.description') }}</label>
+                                <input wire:model="description" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
+                                    type="text" name="description" id="description" value="{{ old('description') }}">
+                                @if($errors->has('description'))
+                                <span class="text-danger">{{ $errors->first('description') }}</span>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.transaction.fields.description_helper') }}</span>
+                            </div>
                         </div>
-            </div>
+
             <div class="col-lg-6">
                     <div class="form-group">
                         <label for="amount">{{ trans('cruds.transaction.fields.amount') }}</label>
@@ -47,16 +47,18 @@
                         <span class="help-block">{{ trans('cruds.transaction.fields.amount_helper') }}</span>
                     </div>
             </div>
-            <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="name">{{ trans('cruds.transaction.fields.name') }}</label>
-                            <input wire:model="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name') }}">
-                            @if($errors->has('name'))
-                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.transaction.fields.name_helper') }}</span>
-                        </div>
-                    </div>
+<div class="col-lg-6">
+
+                <div class="form-group">
+                    <label for="date">{{ trans('cruds.transaction.fields.date') }}</label>
+                    <input wire:model="date" class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date"
+                        name="date" id="date" value="{{ old('date') }}">
+                    @if($errors->has('date'))
+                    <span class="text-danger">{{ $errors->first('date') }}</span>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.transaction.fields.date_helper') }}</span>
+                </div>
+            </div>
 
             <div class="col-lg-6">
                 <div class="form-group">
