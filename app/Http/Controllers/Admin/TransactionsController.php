@@ -21,22 +21,31 @@ class TransactionsController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
+        $typeTransaction = $request->transaction;
         abort_if(Gate::denies('transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transactions = Transaction::with(['status', 'type'])->get();
+        $transactions = Transaction::with(['status', 'type'])->where('type_id', '=', $typeTransaction)->get();
 
         $transaction_statuses = TransactionStatus::get();
 
         $transaction_types = TransactionType::get();
 
-        return view('admin.transactions.index', compact('transactions', 'transaction_statuses', 'transaction_types'));
+        return view('admin.transactions.index', compact('transactions', 'transaction_statuses', 'transaction_types', 'typeTransaction'));
     }
 
     public function create(Request $request)
     {
         $transaction = $request->transaction;
+        $transactionId = 0;
+
+        if ($request->data) {
+            $param = explode('-', $request->data);
+            $transactionId = $param[0];
+            $transaction = $param[1];
+        }
+
         //return $transaction;
 
         abort_if(Gate::denies('transaction_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -49,12 +58,11 @@ class TransactionsController extends Controller
 
         $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.transactions.create', compact('statuses', 'types', 'providers', 'stores', 'transaction'));
+        return view('admin.transactions.create', compact('statuses', 'types', 'providers', 'stores', 'transaction', 'transactionId'));
     }
 
     public function store(StoreTransactionRequest $request)
     {
-        dd('entrando');
         $transaction = Transaction::create($request->all());
 
         if ($media = $request->input('ck-media', false)) {
@@ -79,6 +87,7 @@ class TransactionsController extends Controller
 
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
+        dd('test');
         $transaction->update($request->all());
 
         return redirect()->route('admin.transactions.index');

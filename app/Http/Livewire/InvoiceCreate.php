@@ -27,18 +27,38 @@ class InvoiceCreate extends Component
     public $type_id;
     public $status_id;
     public $invoiceSaved = false;
+    public $transactionId;
 
 
-    public function mount($type)
+    public function mount($data)
     {
         $this->allProducts = Product::all();
-        $this->type_id = $type;
+        $this->type_id = $data->type;
+        $this->transactionId = $data->transactionId;
+        if ($this->transactionId > 0) {
+            $currentTransaction = Transaction::find($this->transactionId);
+
+            $this->date = $currentTransaction->date;
+            $this->description = $currentTransaction->description;
+            $this->amount = $currentTransaction->amount;
+            $this->provider_id = $currentTransaction->provider_id;
+            $this->store_destiny_id = $currentTransaction->store_destiny_id;
+            // $this->date = $currentTransaction->date;
+            // dd($currentTransaction);
+            $currentDetail = TransactionDetail::Where('transaction_id', '=', $this->transactionId)->get();
+            // foreach ($currentDetail as $product) {
+            //     $this->invoiceProducts[]['product_name'] = $product->name;
+            //     $this->invoiceProducts[]['product_price'] = $product->price;
+            //     $this->invoiceProducts[]['is_saved'] = true;
+            // }
+            //dd($currentDetail);
+        }
     }
 
     public function render()
     {
         $total = 0;
-        $date = $this->date;
+
         $statuses = TransactionStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $types = TransactionType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -60,7 +80,6 @@ class InvoiceCreate extends Component
         return view('livewire.invoice-create', [
             'subtotal' => $total,
             'total' => $total,
-            'date' => $date,
             'amount' => $this->amount,
             'description' => $this->description,
             'statuses' => $statuses,
@@ -137,8 +156,21 @@ class InvoiceCreate extends Component
             $details = TransactionDetail::Create([
                 'transaction_id' => $transaction['id'],
                 'quantity' => $product['quantity']
-
             ]);
+
+            /** Actualización de Stock al realizar Compra */
+            if ($this->type_id == 1) {
+                $currentProduct = Product::find($product['product_id']);
+                $currentProduct->stock += $product['quantity'];
+                $currentProduct->save();
+            }
+
+            /** Actualización de Stock al realizar Venta */
+            if ($this->type_id == 2) {
+                $currentProduct = Product::find($product['product_id']);
+                $currentProduct->stock -= $product['quantity'];
+                $currentProduct->save();
+            }
         }
 
         $this->reset('invoiceProducts', 'date', 'amount', 'description', 'type_id', 'provider_id', 'store_destiny_id');
