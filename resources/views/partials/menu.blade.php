@@ -192,7 +192,7 @@
 
                             </i>
                             <p>
-                                {{ trans('cruds.adminProduct.title') }}
+                                {{ trans('cruds.product.title') }}
                                 <i class="right fa fa-fw fa-angle-left nav-icon"></i>
                             </p>
                         </a>
@@ -223,12 +223,12 @@
                             @endcan
                             @can('products_base_access')
                                 <li class="nav-item">
-                                    <a href="{{ route("admin.products-bases.index") }}" class="nav-link {{ request()->is("admin/products-bases") || request()->is("admin/products-bases/*") ? "active" : "" }}">
+                                    <a href="{{ route("admin.products.index") }}" class="nav-link {{ request()->is("admin/products") || request()->is("admin/products/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-boxes">
 
                                         </i>
                                         <p>
-                                            {{ trans('cruds.productsBase.title') }}
+                                            {{ trans('cruds.product.title') }}
                                         </p>
                                     </a>
                                 </li>
