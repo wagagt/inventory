@@ -61,6 +61,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Products
     Route::delete('products/destroy', 'ProductsController@massDestroy')->name('products.massDestroy');
+    Route::get('products/import', 'ProductsController@import')->name('products.import');
     Route::resource('products', 'ProductsController');
 
     // Products Bases
