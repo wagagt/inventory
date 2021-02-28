@@ -258,8 +258,9 @@ return [
         'title_singular' => 'Admin Product',
     ],
     'product'               => [
-        'title'          => 'Products',
-        'title_singular' => 'Product',
+        'title'          => 'Productos',
+        'title_singular' => 'Producto',
+        'import'         => 'Importar desde Archivo Excel',
         'fields'         => [
             'id'                   => 'ID',
             'id_helper'            => ' ',

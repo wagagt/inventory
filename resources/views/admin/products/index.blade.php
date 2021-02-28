@@ -2,9 +2,14 @@
 @section('content')
 @can('product_create')
     <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <a class="btn btn-success" href="{{ route('admin.products.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <a class="btn btn-success" href="{{ route('admin.products.import') }}">
+                {{ trans('global.add') }} {{ trans('cruds.product.import') }}
             </a>
         </div>
     </div>
@@ -166,7 +171,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>
