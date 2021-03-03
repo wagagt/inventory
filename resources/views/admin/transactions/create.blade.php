@@ -13,9 +13,11 @@
             <div class="col-lg-12">
                 <hr>
                 @php
-                    $type = $transaction;
+                    $data = new stdClass();
+                    $data->type = $transaction;
+                    $data->transactionId = $transactionId;
                 @endphp
-                <livewire:invoice-create :type="$type" />
+                <livewire:invoice-create :data="$data" />
             </div>
         </div>
 

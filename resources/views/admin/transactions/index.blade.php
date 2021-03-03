@@ -2,21 +2,27 @@
 @section('content')
 @can('transaction_create')
     <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 1])) }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.buy') }}
-            </a>
-        </div>
-        <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 2])) }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.sell') }}
-            </a>
-        </div>
-        <div class="col-lg-4">
-            <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 3])) }}">
-                {{ trans('global.add') }} {{ trans('cruds.transaction.transfer') }}
-            </a>
-        </div>
+        @if ($typeTransaction == 1)
+            <div class="col-lg-4">
+                <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 1])) }}">
+                    {{ trans('global.add') }} {{ trans('cruds.transaction.buy') }}
+                </a>
+            </div>
+        @endif
+        @if ($typeTransaction == 2)
+            <div class="col-lg-4">
+                <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 2])) }}">
+                    {{ trans('global.add') }} {{ trans('cruds.transaction.sell') }}
+                </a>
+            </div>
+        @endif
+        @if ($typeTransaction == 3)
+            <div class="col-lg-4">
+                <a class="btn btn-success" href="{{ route('admin.transactions.create', (['transaction' => 3])) }}">
+                    {{ trans('global.add') }} {{ trans('cruds.transaction.transfer') }}
+                </a>
+            </div>
+        @endif
     </div>
 @endcan
 <div class="card">
@@ -149,25 +155,25 @@
                                 {{ $transaction->type->name ?? '' }}
                             </td>
                             <td>
-                                @can('transaction_show')
+                                {{-- @can('transaction_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
-                                @endcan
+                                @endcan --}}
 
                                 @can('transaction_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.edit', $transaction->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.create', ['data' => $transaction->id . '-' . 1]) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('transaction_delete')
+                                {{-- @can('transaction_delete')
                                     <form action="{{ route('admin.transactions.destroy', $transaction->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
                                     </form>
-                                @endcan
+                                @endcan --}}
 
                             </td>
 

@@ -310,7 +310,7 @@
                             @endcan
                             @can('transaction_access')
                                 <li class="nav-item">
-                                    <a href="{{ route("admin.transactions.index") }}" class="nav-link {{ request()->is("admin/transactions") || request()->is("admin/transactions/*") ? "active" : "" }}">
+                                    <a href="{{ route("admin.transactions.index", ['transactionId' => 1] ) }}" class="nav-link {{ request()->is("admin/transactions") || request()->is("admin/transactions/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-cogs">
 
                                         </i>
@@ -321,8 +321,9 @@
                                 </li>
                             @endcan
                             <li class="nav-item">
-                                <a href="{{ route('admin.transactions.create', (['transaction' => 1])) }}"
-                                    class="nav-link {{ (request()->is("admin/transactions/create?transaction=1")) ? "active" : "" }}">
+                                <a href="{{ route("admin.transactions.index", ['transaction' => 1] ) }}"
+                                    {{-- class="nav-link {{ (request()->is("admin/transactions/create?transaction=1")) ? "active" : "" }}"> --}}
+                                    class="nav-link {{ (request()->is("admin/transactions/index?transaction=1")) ? "active" : "" }}">
                                     <i class="fa-fw nav-icon fas fa-cart-plus">
 
                                     </i>
@@ -333,8 +334,8 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('admin.transactions.create', (['transaction' => 2])) }}"
-                                    class="nav-link {{ (request()->is("/admin/transactions/create?transaction=2")) ? "active" : "" }}">
+                                <a href="{{ route('admin.transactions.index', ['transaction' => 2]) }}"
+                                    class="nav-link {{ (request()->is("/admin/transactions/index?transaction=2")) ? "active" : "" }}">
                                     <i class="fa-fw nav-icon fas fa-cart-plus">
 
                                     </i>
@@ -345,8 +346,8 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('admin.transactions.create', (['transaction' => 3])) }}"
-                                    class="nav-link {{ (request()->is("admin/transactions/create?transaction=3")) ? "active" : "" }}">
+                                <a href="{{ route('admin.transactions.index', ['transaction' => 3]) }}"
+                                    class="nav-link {{ (request()->is("admin/transactions/index?transaction=3")) ? "active" : "" }}">
                                     <i class="fa-fw nav-icon fas fa-cart-plus">
 
                                     </i>
