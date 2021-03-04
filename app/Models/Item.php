@@ -42,7 +42,7 @@ class Item extends Model
 
     public function product()
     {
-        return $this->belongsTo(ProductsBase::class, 'product_id');
+        return $this->belongsTo(Product::class);
     }
 
     public function store()
