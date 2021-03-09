@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyTransactionRequest;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
+use App\Models\CrmCustomer;
 use App\Models\Transaction;
 use App\Models\TransactionStatus;
 use App\Models\TransactionType;
@@ -27,6 +28,21 @@ class TransactionsController extends Controller
         abort_if(Gate::denies('transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $transactions = Transaction::with(['status', 'type'])->where('type_id', '=', $typeTransaction)->get();
+        // dd($transactions);
+        foreach ($transactions as $transaction) {
+            if ($typeTransaction == 1) {
+                $transaction->store_destiny = Store::where('id', $transaction->store_destiny)->select('name')->firstOrFail();
+                $transaction->store_destiny = $transaction->store_destiny->name;
+                $transaction->provider = Provider::where('id', $transaction->provider)->select('name')->first();
+                $transaction->provider = $transaction->provider->name;
+            }
+            if ($typeTransaction == 2) {
+                $transaction->customer = CrmCustomer::where('id', $transaction->customer)->select('first_name', 'last_name')->first();
+                $transaction->customer = $transaction->customer->first_name . ' ' . $transaction->customer->last_name;
+                $transaction->store_origin = Store::where('id', $transaction->store_origin)->select('name')->first();
+                $transaction->store_origin = $transaction->store_origin->name;
+            }
+        }
 
         $transaction_statuses = TransactionStatus::get();
 

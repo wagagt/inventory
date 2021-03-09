@@ -27,7 +27,16 @@
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.transaction.title_singular') }} {{ trans('global.list') }}
+        Listado {{ trans('cruds.transaction.title_singular') }} {{-- {{ trans('global.list') }} --}}
+        @if ($typeTransaction == 1)
+            Compra
+        @endif
+        @if ($typeTransaction == 2)
+            Venta
+        @endif
+        @if ($typeTransaction == 3)
+            Traslado
+        @endif
     </div>
 
     <div class="card-body">

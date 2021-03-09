@@ -118,6 +118,21 @@
                         <span class="help-block">{{ trans('cruds.transaction.fields.customer_helper') }}</span>
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="required" for="store_id">{{ trans('cruds.transaction.fields.store_origin') }}</label>
+                        <select wire:model="store_origin_id" class="form-control select2 {{ $errors->has('store_id') ? 'is-invalid' : '' }}" name="store_id"
+                            id="store_id" required>
+                            @foreach($stores as $id => $store)
+                            <option value="{{ $id }}" {{ old('store_id') == $id ? 'selected' : '' }}>{{ $store }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('store_id'))
+                        <span class="text-danger">{{ $errors->first('store_id') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.transaction.fields.store_origin_helper') }}</span>
+                    </div>
+                </div>
             @endif
 
             @if ($type_id == 3)
@@ -136,23 +151,23 @@
                         <span class="help-block">{{ trans('cruds.transaction.fields.store_origin_helper') }}</span>
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="required" for="store_id">{{ trans('cruds.transaction.fields.store_destiny') }}</label>
+                        <select wire:model="store_destiny_id" class="form-control select2 {{ $errors->has('store_id') ? 'is-invalid' : '' }}" name="store_id"
+                            id="store_id" required>
+                            @foreach($stores as $id => $store)
+                            <option value="{{ $id }}" {{ old('store_id') == $id ? 'selected' : '' }}>{{ $store }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('store_id'))
+                        <span class="text-danger">{{ $errors->first('store_id') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.transaction.fields.store_destiny_helper') }}</span>
+                    </div>
+                </div>
             @endif
 
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label class="required" for="store_id">{{ trans('cruds.transaction.fields.store_destiny') }}</label>
-                    <select wire:model="store_destiny_id" class="form-control select2 {{ $errors->has('store_id') ? 'is-invalid' : '' }}" name="store_id"
-                        id="store_id" required>
-                        @foreach($stores as $id => $store)
-                        <option value="{{ $id }}" {{ old('store_id') == $id ? 'selected' : '' }}>{{ $store }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('store_id'))
-                    <span class="text-danger">{{ $errors->first('store_id') }}</span>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.transaction.fields.store_destiny_helper') }}</span>
-                </div>
-            </div>
         </div>
 
 
