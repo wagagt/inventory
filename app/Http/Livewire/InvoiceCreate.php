@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\CrmCustomer;
+use App\Models\Item;
+use App\Models\ItemTransactionDetail;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\TransactionStatus;
@@ -11,6 +13,7 @@ use App\Models\Provider;
 use App\Models\Store;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceCreate extends Component
 {
@@ -27,18 +30,52 @@ class InvoiceCreate extends Component
     public $type_id;
     public $status_id;
     public $invoiceSaved = false;
+    public $transactionId;
+    public $action = 1;
 
 
-    public function mount($type)
+    public function mount($data)
     {
         $this->allProducts = Product::all();
-        $this->type_id = $type;
+        $this->type_id = $data->type;
+        $this->transactionId = $data->transactionId;
+
+        if ($this->transactionId > 0) {
+            $this->action = 2;
+            $currentTransaction = Transaction::find($this->transactionId);
+            $this->date = $currentTransaction->date;
+            $this->description = $currentTransaction->description;
+            $this->amount = $currentTransaction->amount;
+            $this->provider_id = $currentTransaction->provider;
+            $this->store_destiny_id = $currentTransaction->store_destiny;
+            // $this->date = $currentTransaction->date;
+            $currentDetails = TransactionDetail::Where('transaction_id', '=', $this->transactionId)->get();
+            $index = 0;
+            foreach ($currentDetails as $detail) {
+                // dd($detail);
+                $currentItem = Item::Where('transaction_detail', '=', $detail->id)->firstOrFail();
+                $currentProduct = Product::Where('id', '=', $currentItem->product_id)->Select('id', 'name', 'description', 'price')->firstOrFail();
+                // dd($currentProduct);
+                $this->invoiceProducts[$index]['product_id'] = $currentProduct->id;
+                $this->invoiceProducts[$index]['quantity'] = $detail->quantity;
+                $this->invoiceProducts[$index]['product_name'] = $currentProduct->name;
+                $this->invoiceProducts[$index]['product_price'] = $currentProduct->price;
+                $this->invoiceProducts[$index]['is_saved'] = true;
+                $index++;
+            }
+
+
+            // foreach ($currentDetail as $product) {
+
+            // }
+
+        }
     }
 
     public function render()
     {
         $total = 0;
-        $date = $this->date;
+
         $statuses = TransactionStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $types = TransactionType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -50,6 +87,7 @@ class InvoiceCreate extends Component
         $customers = CrmCustomer::all()->pluck('last_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         foreach ($this->invoiceProducts as $invoiceProduct) {
+            // dd($invoiceProduct);
             if ($invoiceProduct['is_saved'] && $invoiceProduct['product_price'] && $invoiceProduct['quantity']) {
                 $total += $invoiceProduct['product_price'] * $invoiceProduct['quantity'];
             }
@@ -60,7 +98,6 @@ class InvoiceCreate extends Component
         return view('livewire.invoice-create', [
             'subtotal' => $total,
             'total' => $total,
-            'date' => $date,
             'amount' => $this->amount,
             'description' => $this->description,
             'statuses' => $statuses,
@@ -121,27 +158,134 @@ class InvoiceCreate extends Component
 
     public function saveInvoice()
     {
-        $transaction = Transaction::create([
-            'date' => $this->date,
-            'description' => $this->description,
-            'amount' => $this->amount,
-            'store_origin' => $this->store_origin_id,
-            'store_destiny' => $this->store_destiny_id,
-            'customer' => $this->customer_id,
-            'provider' => $this->provider_id,
-            'status_id' => $this->status_id,
-            'type_id' => $this->type_id,
-        ]);
-
-        foreach ($this->invoiceProducts as $product) {
-            $details = TransactionDetail::Create([
-                'transaction_id' => $transaction['id'],
-                'quantity' => $product['quantity']
-
+        if ($this->action == 1) {
+            $transaction = Transaction::create([
+                'date' => $this->date,
+                'description' => $this->description,
+                'amount' => $this->amount,
+                'store_origin' => $this->store_origin_id,
+                'store_destiny' => $this->store_destiny_id,
+                'customer' => $this->customer_id,
+                'provider' => $this->provider_id,
+                'status_id' => $this->status_id,
+                'type_id' => $this->type_id,
             ]);
+
+            foreach ($this->invoiceProducts as $product) {
+                $detail = TransactionDetail::Create([
+                    'transaction_id' => $transaction['id'],
+                    'quantity' => $product['quantity']
+                ]);
+
+                /** Actualización de Stock al realizar Compra */
+                if ($this->type_id == 1) {
+                    $currentProduct = Product::find($product['product_id']);
+                    $currentProduct->stock += $product['quantity'];
+                    $currentProduct->save();
+
+                    for ($i = 0; $i < $product['quantity']; $i++) {
+                        $item = Item::create([
+                            'price' => $product['product_price'],
+                            'transaction_detail' => $detail['id'],
+                            'product_id' => $product['product_id'],
+                            'store_id' => $this->store_destiny_id,
+                        ]);
+
+                        $itemsTransaction = ItemTransactionDetail::Create([
+                            'transaction_detail_id' => $detail['id'],
+                            'item_id' => $item['id']
+                        ]);
+                    }
+                }
+
+                /** Actualización de Stock al realizar Venta */
+                if ($this->type_id == 2) {
+                    $currentProduct = Product::find($product['product_id']);
+                    $currentProduct->stock -= $product['quantity'];
+                    $currentProduct->save();
+
+                    for ($i = 0; $i < $product['quantity']; $i++) {
+                        $item = Item::where('product_id', '=', $product['product_id'])->where('store_id', '=', $this->store_origin_id)->first();
+
+                        $itemsTransaction = ItemTransactionDetail::Create([
+                            'transaction_detail_id' => $detail['id'],
+                            'item_id' => $item['id']
+                        ]);
+
+                        $item->delete();
+                    }
+                }
+            }
+        } else {
+            Transaction::where('id', $this->transactionId)
+                ->update([
+                    'date' => $this->date, 'amount' => $this->amount, 'description' => $this->description, 'store_origin' => $this->store_origin_id,
+                    'store_destiny' => $this->store_destiny_id, 'customer' => $this->customer_id, 'provider' => $this->provider_id,
+                    'status_id' => $this->status_id, 'type_id' => $this->type_id
+                ]);
+
+            foreach ($this->invoiceProducts as $product) {
+                $id_product = $product['product_id'];
+                $product_detail_id =    DB::Select("
+                                        SELECT DISTINCT
+                                            td.id
+                                        FROM
+                                            transaction_details as td
+                                        INNER JOIN
+                                            items as i
+                                        ON
+                                            i.transaction_detail = td.id
+                                        WHERE
+                                            td.transaction_id = {$this->transactionId}
+                                        AND
+                                            i.product_id = {$id_product}
+                                    ");
+
+                $productDetailId = $product_detail_id[0]->id;
+
+                TransactionDetail::where('id', '=', $productDetailId)
+                    ->update(['quantity' => $product['quantity']]);
+
+                $quantityItems = DB::Select("
+                                                SELECT count(*) as total FROM items WHERE transaction_detail = {$productDetailId}
+                                            ");
+                $quantityItems = $quantityItems[0]->total;
+
+                if ($quantityItems > $product['quantity']) {
+
+                    $deleteItems = $quantityItems - $product['quantity'];
+
+                    $currentProduct = Product::find($product['product_id']);
+                    $currentProduct->stock -= $deleteItems;
+                    $currentProduct->save();
+
+                    for ($i = 0; $i < $deleteItems; $i++) {
+                        $item = Item::where('product_id', $product['product_id'])->where('transaction_detail', $productDetailId)->first();
+                        $item->delete();
+                    }
+                }
+
+                if ($quantityItems < $product['quantity']) {
+
+                    $addItems = $product['quantity'] - $quantityItems;
+
+                    $currentProduct = Product::find($product['product_id']);
+                    $currentProduct->stock -= $deleteItems;
+                    $currentProduct->save();
+
+                    for ($i = 0; $i < $addItems; $i++) {
+                        $item = Item::create([
+                            'price' => $product['product_price'],
+                            'transaction_detail' => $productDetailId,
+                            'product_id' => $product['product_id'],
+                            'store_id' => $this->store_destiny_id,
+                        ]);
+                    }
+                }
+            }
         }
 
-        $this->reset('invoiceProducts', 'date', 'amount', 'description', 'type_id', 'provider_id', 'store_destiny_id');
+        $this->reset('invoiceProducts', 'date', 'amount', 'description', 'provider_id', 'store_destiny_id');
         $this->invoiceSaved = true;
     }
 }

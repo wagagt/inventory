@@ -4,6 +4,15 @@
 <div class="card">
     <div class="card-header">
         {{ trans('global.create') }} {{ trans('cruds.transaction.title_singular') }}
+        @if ($transaction == 1)
+            Compra
+        @endif
+        @if ($transaction == 2)
+            Venta
+        @endif
+        @if ($transaction == 3)
+            Traslado
+        @endif
     </div>
 
     <div class="card-body">
@@ -13,9 +22,11 @@
             <div class="col-lg-12">
                 <hr>
                 @php
-                    $type = $transaction;
+                    $data = new stdClass();
+                    $data->type = $transaction;
+                    $data->transactionId = $transactionId;
                 @endphp
-                <livewire:invoice-create :type="$type" />
+                <livewire:invoice-create :data="$data" />
             </div>
         </div>
 

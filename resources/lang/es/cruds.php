@@ -404,7 +404,7 @@ return [
     ],
     'transaction'           => [
         'title'          => 'Transactions',
-        'title_singular'          => 'Transactions',
+        'title_singular'          => 'Transacciones de',
         'buy' => ' Compra',
         'sell' => ' Venta',
         'transfer' => ' Traslado',
