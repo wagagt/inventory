@@ -24,6 +24,7 @@ class Item extends Model
         'serial_number',
         'price',
         'transaction_detail',
+        'status',
         'store_id',
         'created_at',
         'updated_at',

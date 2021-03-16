@@ -171,7 +171,7 @@
                                 @endcan --}}
 
                                 @can('transaction_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.create', ['data' => $transaction->id . '-' . 1]) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.create', ['data' => $transaction->id . '-' . $typeTransaction]) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan

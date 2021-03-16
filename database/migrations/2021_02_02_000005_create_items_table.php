@@ -13,6 +13,7 @@ class CreateItemsTable extends Migration
             $table->string('serial_number')->nullable();
             $table->decimal('price', 15, 2)->nullable();
             $table->integer('transaction_detail')->nullable();
+            $table->enum('status', ['Stock', 'Sold', 'Decrease']);
             $table->timestamps();
             $table->softDeletes();
         });

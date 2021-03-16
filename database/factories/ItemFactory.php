@@ -22,11 +22,12 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-        'serial_number' => $this->faker->ean8,
-        'price' => $this->faker->numberBetween($min = 500, $max = 6000),
-        'transaction_detail' => 1,
-        'product_id' => 1 ,
-        'store_id'=> 1
+            'serial_number' => $this->faker->ean8,
+            'price' => $this->faker->numberBetween($min = 500, $max = 6000),
+            'transaction_detail' => 1,
+            'status' => 'Stock',
+            'product_id' => 1,
+            'store_id' => 1
         ];
     }
 }

@@ -39,7 +39,6 @@ class InvoiceCreate extends Component
         $this->allProducts = Product::all();
         $this->type_id = $data->type;
         $this->transactionId = $data->transactionId;
-
         if ($this->transactionId > 0) {
             $this->action = 2;
             $currentTransaction = Transaction::find($this->transactionId);
@@ -48,12 +47,15 @@ class InvoiceCreate extends Component
             $this->amount = $currentTransaction->amount;
             $this->provider_id = $currentTransaction->provider;
             $this->store_destiny_id = $currentTransaction->store_destiny;
+            $this->customer_id = $currentTransaction->customer;
+            $this->store_origin_id = $currentTransaction->store_origin;
             // $this->date = $currentTransaction->date;
             $currentDetails = TransactionDetail::Where('transaction_id', '=', $this->transactionId)->get();
             $index = 0;
+            // dd($currentDetails);
             foreach ($currentDetails as $detail) {
-                // dd($detail);
                 $currentItem = Item::Where('transaction_detail', '=', $detail->id)->firstOrFail();
+                // dd($currentItem);
                 $currentProduct = Product::Where('id', '=', $currentItem->product_id)->Select('id', 'name', 'description', 'price')->firstOrFail();
                 // dd($currentProduct);
                 $this->invoiceProducts[$index]['product_id'] = $currentProduct->id;
@@ -144,6 +146,19 @@ class InvoiceCreate extends Component
     public function saveProduct($index)
     {
         $this->resetErrorBag();
+        if ($this->type_id == 2) {
+            $existencia = DB::Select("
+                                        SELECT count(*) as total
+                                            FROM items
+                                            WHERE product_id = {$this->invoiceProducts[$index]['product_id']}
+                                            AND store_id = {$this->store_origin_id}
+                                    ");
+            if ($existencia[0]->total < $this->invoiceProducts[$index]['quantity']) {
+                $this->addError('invoiceProducts.' . $index, 'En la Bodega Seleccionada NO hay existencia para cumplir con este requerimiento!!.');
+                return;
+            }
+        }
+
         $product = $this->allProducts->find($this->invoiceProducts[$index]['product_id']);
         $this->invoiceProducts[$index]['product_name'] = $product->name;
         $this->invoiceProducts[$index]['product_price'] = $product->price;
@@ -187,6 +202,7 @@ class InvoiceCreate extends Component
                         $item = Item::create([
                             'price' => $product['product_price'],
                             'transaction_detail' => $detail['id'],
+                            'status' => 'Stock',
                             'product_id' => $product['product_id'],
                             'store_id' => $this->store_destiny_id,
                         ]);
@@ -212,11 +228,13 @@ class InvoiceCreate extends Component
                             'item_id' => $item['id']
                         ]);
 
-                        $item->delete();
+                        Item::where('id', '=', $item->id + $i)
+                            ->update(['status' => 'Decrease', 'transaction_detail' => $detail['id']]);
                     }
                 }
             }
         } else {
+
             Transaction::where('id', $this->transactionId)
                 ->update([
                     'date' => $this->date, 'amount' => $this->amount, 'description' => $this->description, 'store_origin' => $this->store_origin_id,
@@ -261,7 +279,8 @@ class InvoiceCreate extends Component
 
                     for ($i = 0; $i < $deleteItems; $i++) {
                         $item = Item::where('product_id', $product['product_id'])->where('transaction_detail', $productDetailId)->first();
-                        $item->delete();
+                        Item::where('id', '=', $item->id + $i)
+                            ->update(['status' => 'Decrease']);
                     }
                 }
 
@@ -270,13 +289,14 @@ class InvoiceCreate extends Component
                     $addItems = $product['quantity'] - $quantityItems;
 
                     $currentProduct = Product::find($product['product_id']);
-                    $currentProduct->stock -= $deleteItems;
+                    $currentProduct->stock += $deleteItems;
                     $currentProduct->save();
 
                     for ($i = 0; $i < $addItems; $i++) {
                         $item = Item::create([
                             'price' => $product['product_price'],
                             'transaction_detail' => $productDetailId,
+                            'status' => 'stock',
                             'product_id' => $product['product_id'],
                             'store_id' => $this->store_destiny_id,
                         ]);

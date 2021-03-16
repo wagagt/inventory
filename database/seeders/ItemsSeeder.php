@@ -21,9 +21,11 @@ class ItemsSeeder extends Seeder
 
         for ($s = 1; $s < $countStore + 1; $s++) {
             for ($p = 1; $p < $countProduct + 1; $p++) {
-                Item::factory()->create(['product_id' => $p, 'store_id' => $s]);
+                $stock = rand(2, 5);
+                for ($pid = 0; $pid < $stock; $pid++) {
+                    Item::factory()->create(['product_id' => $p, 'store_id' => $s]);
+                }
             }
         }
-
     }
 }
