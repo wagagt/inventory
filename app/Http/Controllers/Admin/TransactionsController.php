@@ -28,7 +28,7 @@ class TransactionsController extends Controller
         abort_if(Gate::denies('transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $transactions = Transaction::with(['status', 'type'])->where('type_id', '=', $typeTransaction)->get();
-        // dd($transactions);
+        // dd($typeTransaction);
         foreach ($transactions as $transaction) {
             if ($typeTransaction == 1) {
                 $transaction->store_destiny = Store::where('id', $transaction->store_destiny)->select('name')->firstOrFail();

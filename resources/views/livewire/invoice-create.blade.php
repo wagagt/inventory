@@ -100,6 +100,21 @@
                         <span class="help-block">{{ trans('cruds.transaction.fields.provider_helper') }}</span>
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="required" for="store_id">{{ trans('cruds.transaction.fields.store_destiny') }}</label>
+                        <select wire:model="store_destiny_id" class="form-control select2 {{ $errors->has('store_id') ? 'is-invalid' : '' }}" name="store_id"
+                            id="store_id" required>
+                            @foreach($stores as $id => $store)
+                            <option value="{{ $id }}" {{ old('store_id') == $id ? 'selected' : '' }}>{{ $store }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('store_id'))
+                        <span class="text-danger">{{ $errors->first('store_id') }}</span>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.transaction.fields.store_destiny_helper') }}</span>
+                    </div>
+                </div>
             @endif
 
             @if ($type_id == 2)
@@ -189,9 +204,10 @@
                     <thead>
                     <tr>
                         <th width="25">Id Item</th>
-                        <th width="100">Nombre Item</th>
-                        <th width="100">Precio Item</th>
-                        <th width="100">Cantidad</th>
+                        <th width="225">Nombre Item</th>
+                        <th width="25">Precio Item</th>
+                        <th width="25">Cantidad</th>
+                        <th width="25">Detalle</th>
                         <th width="150">Acciones</th>
                     </tr>
                     </thead>
@@ -253,6 +269,10 @@
                                     <input type="number" name="invoiceProducts[{{$index}}][quantity]"
                                            class="form-control" wire:model="invoiceProducts.{{$index}}.quantity" />
                                 @endif
+                            </td>
+
+                            <td>
+                                <a href="http://localhost:3000/admin/products/{{ $invoiceProduct['product_id'] }}" target="_blank" rel="noopener noreferrer">Ver</a>
                             </td>
 
                             <td>
