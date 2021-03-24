@@ -272,7 +272,7 @@
                             </td>
 
                             <td>
-                                <a href="http://localhost:3000/admin/products/{{ $invoiceProduct['product_id'] }}" target="_blank" rel="noopener noreferrer">Ver</a>
+                            <a href= "{{ env('APP_URL') }}/admin/products/{{ $invoiceProduct['product_id'] }}" target="_blank" rel="noopener noreferrer">Ver</a>
                             </td>
 
                             <td>
