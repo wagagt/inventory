@@ -31,8 +31,8 @@ class ProductsController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        $request->request->add(['stock' => '0']);
         $product = Product::create($request->all());
-
         return redirect()->route('admin.products.index');
     }
 
