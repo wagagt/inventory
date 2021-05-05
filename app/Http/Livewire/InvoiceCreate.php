@@ -86,10 +86,9 @@ class InvoiceCreate extends Component
 
         $stores = Store::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $customers = CrmCustomer::all()->pluck('last_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customers = CrmCustomer::all()->pluck('full_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         foreach ($this->invoiceProducts as $invoiceProduct) {
-            // dd($invoiceProduct);
             if ($invoiceProduct['is_saved'] && $invoiceProduct['product_price'] && $invoiceProduct['quantity']) {
                 $total += $invoiceProduct['product_price'] * $invoiceProduct['quantity'];
             }

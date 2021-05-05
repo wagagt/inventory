@@ -42,4 +42,10 @@ class Provider extends Model
     {
         return $this->belongsToMany(ProductsBase::class);
     }
+
+    public function getFullProviderInfo()
+    {
+        return "{$this->name}, {$this->contact_name}";
+    }
+
 }

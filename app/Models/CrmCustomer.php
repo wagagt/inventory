@@ -48,4 +48,10 @@ class CrmCustomer extends Model
     {
         return $this->belongsTo(CrmStatus::class, 'status_id');
     }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
 }
